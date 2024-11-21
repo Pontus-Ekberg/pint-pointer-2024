@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../service/Firebase";
 import claus from "../assets/img/Claus.png";
@@ -7,6 +8,7 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ const LoginPage: React.FC = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful!");
+      navigate("/compass");
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -29,7 +31,7 @@ const LoginPage: React.FC = () => {
       <h1 className="text-white font-bold text-4xl mt-10 mb-[50px]">Login</h1>
       <form
         onSubmit={handleLogin}
-        className="flex flex-col items-center w-80  p-6 "
+        className="flex flex-col items-center w-80 p-6"
       >
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
         <input
