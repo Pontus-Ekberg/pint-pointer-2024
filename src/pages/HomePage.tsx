@@ -9,13 +9,15 @@ const HomePage = () => {
       </h1>
       <div className="flex flex-col justify-center mt-24">
         <button className="bg-gray-300 border-2 border-black z-20 h-10 mx-28">
-          Point!
+          <a href="/compass">Point!</a>
         </button>
+
         <button className="bg-gray-300 border-2 border-black z-20 h-10 mx-28 mt-5">
-          Signin
+          <a href="/login">Login</a>
         </button>
+
         <button className="bg-gray-300 border-2 border-black z-20 h-10 mt-80 mx-28">
-          Sign up
+          <a href="/signup">Sign up</a>
         </button>
         <img
           className="absolute z-10 top-[360px] left-[100px]"
