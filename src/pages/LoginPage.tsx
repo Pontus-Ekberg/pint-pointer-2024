@@ -16,7 +16,7 @@ const LoginPage: React.FC = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/compass");
+      navigate("/profile");
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

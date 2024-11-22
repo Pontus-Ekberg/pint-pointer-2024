@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../service/Firebase";
+import beerpink from "../assets/img/Beerpink.png";
 
 const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -36,7 +37,7 @@ const SignUpPage: React.FC = () => {
       <h1 className="text-white font-bold text-4xl mt-10 mb-[50px]">Sign Up</h1>
       <form
         onSubmit={handleSignUp}
-        className="flex flex-col items-center w-80 p-6"
+        className="flex flex-col relative items-center w-80 p-6"
       >
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
         {success && <p className="text-green-600 text-sm mb-4">{success}</p>}
@@ -70,6 +71,11 @@ const SignUpPage: React.FC = () => {
         >
           Sign Up
         </button>
+        <img
+          className="absolute top-[270px] left-[70px]"
+          src={beerpink}
+          alt=""
+        />
       </form>
     </div>
   );
