@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../service/Firebase";
 import beerpink from "../assets/img/Beerpink.png";
 
@@ -22,6 +22,16 @@ const SignUpPage: React.FC = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+
+      const user = auth.currentUser;
+
+      if (user) {
+        await updateProfile(user, {
+          displayName: "Default Name",
+          photoURL: "https://example.com/default-profile-pic.png",
+        });
+      }
+
       setSuccess("Account created successfully! You can now log in.");
     } catch (err) {
       if (err instanceof Error) {

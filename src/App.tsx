@@ -4,10 +4,12 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CompassPage from "./pages/CompassPage";
 import ProfilePage from "./pages/ProfilePage";
+import ProfileAvatar from "./components/ProfileIcon";
 
 function App() {
   return (
     <>
+      <ProfileAvatar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
