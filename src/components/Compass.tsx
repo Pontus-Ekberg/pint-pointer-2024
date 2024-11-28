@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { LoadScript } from "@react-google-maps/api";
+import { auth, db } from "../service/Firebase";
+import { doc, setDoc } from "firebase/firestore";
 import keg from "../assets/img/Keg.png";
 import pripp from "../assets/img/Pripp.png";
 import BarCard from "./BarCard";
@@ -66,7 +68,7 @@ const Compass: React.FC = () => {
   const compassCircleRef = useRef<HTMLDivElement | null>(null);
   const [distance, setDistance] = useState<number | null>(null);
   const [radius, setRadius] = useState(3); // Standard är 3 km
-  const [showBarCard, setShowBarCard] = useState(false); // För att visa BarCard
+  const [showBarCard, setShowBarCard] = useState(false);
 
   // Uppdaterar användarens position
   useEffect(() => {
@@ -200,9 +202,37 @@ const Compass: React.FC = () => {
     });
   };
 
+  // Funktion för att spara bar till Firestore
+  const saveBarToFirestore = async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert("Du måste vara inloggad för att spara barer.");
+      return;
+    }
+
+    try {
+      const barRef = doc(
+        db,
+        "users",
+        user.uid,
+        "savedBars",
+        barName || "Unknown Bar"
+      );
+      await setDoc(barRef, {
+        name: barName || "Unknown Bar",
+        photoUrl: barPhotoUrl,
+        timestamp: new Date(),
+      });
+      alert(`${barName} har sparats i din profil!`);
+    } catch (error) {
+      console.error("Error saving bar: ", error);
+      alert("Kunde inte spara baren. Försök igen.");
+    }
+  };
+
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyD8Nw7hS3Hfl5sUc1VkA5pCuT0rO5pDMSQ"
+      googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
       libraries={["places"]}
     >
       <div className="w-screen h-screen flex flex-col justify-center items-center">
@@ -252,6 +282,7 @@ const Compass: React.FC = () => {
             name={barName}
             photoUrl={barPhotoUrl}
             onClose={() => setShowBarCard(false)}
+            onSave={saveBarToFirestore}
           />
         )}
         {!hasPermission && (
