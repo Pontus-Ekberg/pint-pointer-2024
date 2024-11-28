@@ -160,9 +160,9 @@ const Compass: React.FC = () => {
 
       // Visa BarCard när användaren är inom 20 meter från baren
       if (distanceToTarget < 20) {
-        setShowBarCard(false);
-      } else {
         setShowBarCard(true);
+      } else {
+        setShowBarCard(false);
       }
     }
   }, [userCoords, targetCoords]);
@@ -235,25 +235,18 @@ const Compass: React.FC = () => {
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
       libraries={["places"]}
     >
-      <div className="w-screen h-screen flex flex-col justify-center items-center">
-        <select
-          className="bg-gray-300 px-4 py-2 mb-3 border-2 border-black shadow-sm"
-          value={radius}
-          onChange={(e) => setRadius(Number(e.target.value))}
-        >
-          <option value={1}>1 km</option>
-          <option value={2}>2 km</option>
-          <option value={3}>3 km</option>
-          <option value={4}>4 km</option>
-          <option value={5}>5 km</option>
-        </select>
-        <button
-          className="bg-gray-300 border-2 border-black px-4 py-2"
-          onClick={findRandomBar}
-        >
-          Hitta en slumpad bar inom {radius} km
-        </button>
-        <div className="relative w-[320px] h-[320px] rounded-full mx-auto">
+      <div className="mt-14 w-screen h-screen flex flex-col justify-center items-center">
+        {compassHeading !== null && (
+          <p className="text-lg font-semibold">
+            Current Heading: {compassHeading.toFixed(2)}°
+          </p>
+        )}
+        {barName && <p className="text-lg font-semibold">{barName}</p>}
+        {distance !== null && (
+          <p className="text-md font-bold">{distance.toFixed(2)} meter</p>
+        )}
+
+        <div className="relative w-[280px] h-[320px] rounded-full mx-auto">
           <div
             ref={compassCircleRef}
             className="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-contain"
@@ -264,19 +257,7 @@ const Compass: React.FC = () => {
             style={{ backgroundImage: `url(${pripp})` }}
           ></div>
         </div>
-        {compassHeading !== null && (
-          <p className="text-lg font-semibold">
-            Current Heading: {compassHeading.toFixed(2)}°
-          </p>
-        )}
-        {barName && (
-          <p className="text-lg font-semibold">Närmaste bar: {barName}</p>
-        )}
-        {distance !== null && (
-          <p className="text-md text-gray-700">
-            Avstånd till målet: {distance.toFixed(2)} meter
-          </p>
-        )}
+
         {showBarCard && barName && (
           <BarCard
             name={barName}
@@ -285,9 +266,31 @@ const Compass: React.FC = () => {
             onSave={saveBarToFirestore}
           />
         )}
+
+        <div className="flex items-center space-x-4 mt-4">
+          <select
+            className="bg-gray-300 px-4 py-2 border-2 border-black shadow-sm"
+            value={radius}
+            onChange={(e) => setRadius(Number(e.target.value))}
+          >
+            <option value={1}>1 km</option>
+            <option value={2}>2 km</option>
+            <option value={3}>3 km</option>
+            <option value={4}>4 km</option>
+            <option value={5}>5 km</option>
+          </select>
+
+          <button
+            className="bg-gray-300 border-2 border-black px-4 py-2"
+            onClick={findRandomBar}
+          >
+            Find bar: {radius} km
+          </button>
+        </div>
+
         {!hasPermission && (
           <button
-            className="bg-gray-300 border-2 border-black px-4 py-2 mx-10"
+            className="absolute z-40 bg-gray-300 border-2 border-black px-4 py-2 mx-10"
             onClick={handleOrientationPermission}
           >
             Ge tillstånd för att använda kompass

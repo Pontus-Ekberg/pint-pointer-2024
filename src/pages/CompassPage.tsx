@@ -1,9 +1,10 @@
 import Compass from "../components/Compass";
+import plank from "../assets/img/Plank.png";
 
 const CompassPage = () => {
   return (
-    <div className="overflow-hidden h-screen">
-      <h1>Compass</h1>
+    <div className="relative overflow-hidden h-screen">
+      <img className="absolute left-10 w-[250px]" src={plank} alt="" />
       <Compass />
     </div>
   );

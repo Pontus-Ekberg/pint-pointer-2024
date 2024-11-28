@@ -1,13 +1,12 @@
 import beerguy from "../assets/img/Beerguyblue.png";
 import clock from "../assets/img/Clock.png";
+import plank from "../assets/img/Plank.png";
 
 const HomePage = () => {
   return (
     <div className="overflow-hidden h-screen w-screen relative">
-      <h1 className="flex justify-center mt-10 text-white font-bold text-4xl">
-        PintPoint
-      </h1>
-      <div className="flex flex-col justify-center mt-24">
+      <img className="mx-auto w-[250px]" src={plank} alt="" />
+      <div className="flex flex-col justify-center mt-12">
         <button className="bg-gray-300 border-2 border-black z-20 h-10 mx-28">
           <a href="/compass">Point!</a>
         </button>
@@ -16,11 +15,11 @@ const HomePage = () => {
           <a href="/login">Login</a>
         </button>
 
-        <button className="bg-gray-300 border-2 border-black z-20 h-10 mt-80 mx-28">
+        <button className="bg-gray-300 border-2 border-black z-20 h-10 mt-52 mx-28">
           <a href="/signup">Sign up</a>
         </button>
         <img
-          className="absolute z-10 top-[360px] left-[100px]"
+          className="absolute z-10 top-[300px] left-[100px]"
           src={beerguy}
           alt=""
         />
