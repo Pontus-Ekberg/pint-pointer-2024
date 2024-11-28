@@ -3,6 +3,7 @@ import { auth, db } from "../service/Firebase";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import EditCard from "../components/EditCard";
+import plankimg from "../assets/img/Plankprofile.png";
 
 const ProfilePage: React.FC = () => {
   const [showEditCard, setShowEditCard] = useState<boolean>(false);
@@ -71,9 +72,13 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-3xl text-white font-bold mt-10">Profile</h1>
+      <img
+        className="absolute right-24 -rotate-[12deg] w-[220px]"
+        src={plankimg}
+        alt=""
+      />
 
-      <div className="mt-10">
+      <div className="mt-36">
         <img
           className="h-32 w-32 rounded-full border-2 border-black"
           src={profilePicture || "https://via.placeholder.com/150"}

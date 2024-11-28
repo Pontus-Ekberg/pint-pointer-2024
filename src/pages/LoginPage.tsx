@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../service/Firebase";
 import claus from "../assets/img/Claus.png";
+import loginimg from "../assets/img/Planklogin.png";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -28,7 +29,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="relative overflow-hidden h-screen flex flex-col items-center">
-      <h1 className="text-white font-bold text-4xl mt-10 mb-[50px]">Login</h1>
+      <img className="mx-auto w-[250px]" src={loginimg} alt="" />
       <form
         onSubmit={handleLogin}
         className="flex flex-col items-center w-80 p-6"

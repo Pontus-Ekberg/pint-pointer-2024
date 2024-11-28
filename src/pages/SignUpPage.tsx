@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../service/Firebase";
 import beerpink from "../assets/img/Beerpink.png";
+import signupimg from "../assets/img/Planksignup.png";
 
 const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -44,7 +45,7 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="relative overflow-hidden h-screen flex flex-col items-center">
-      <h1 className="text-white font-bold text-4xl mt-10 mb-[50px]">Sign Up</h1>
+      <img className="mx-auto w-[250px]" src={signupimg} alt="" />
       <form
         onSubmit={handleSignUp}
         className="flex flex-col relative items-center w-80 p-6"
