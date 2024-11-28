@@ -109,13 +109,13 @@ const ProfilePage: React.FC = () => {
         </button>
       </div>
 
-      <div className="mt-10 w-full max-w-lg">
+      <div className="mt-10 w-[90%] max-w-lg">
         <h2 className="text-2xl text-white font-bold mb-4">Saved Bars</h2>
         {savedBars.length > 0 ? (
           savedBars.map((bar) => (
             <div
               key={bar.id}
-              className="flex items-center bg-gray-300 p-4 rounded-md shadow-md mb-4 relative"
+              className="flex items-center bg-gray-300 opacity-80 p-4 rounded-md shadow-md mb-4 relative"
             >
               {bar.photoUrl ? (
                 <img
@@ -129,7 +129,7 @@ const ProfilePage: React.FC = () => {
               <p className="text-lg font-medium">{bar.name}</p>
               <button
                 onClick={() => handleDeleteBar(bar.id)}
-                className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm"
+                className="absolute top-2 right-2 px-2 py-1 rounded-full text-sm"
               >
                 X
               </button>

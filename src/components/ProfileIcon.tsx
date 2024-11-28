@@ -21,7 +21,7 @@ const ProfileAvatar: React.FC = () => {
   if (!profilePicture) return null;
 
   return (
-    <Link to="/profile" className="fixed top-4 right-4">
+    <Link to="/profile" className="fixed z-50 top-4 right-4">
       <img
         src={profilePicture}
         alt="Profile"
