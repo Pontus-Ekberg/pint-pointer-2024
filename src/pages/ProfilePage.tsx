@@ -17,8 +17,15 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
-      setDisplayName(user.displayName || "No Name Set");
-      setProfilePicture(user.photoURL || "https://via.placeholder.com/150");
+      const userName = user.displayName || "No Name Set";
+      const userPhoto = user.photoURL || "https://via.placeholder.com/150";
+
+      // Spara användardata till localStorage
+      localStorage.setItem("displayName", userName);
+      localStorage.setItem("profilePicture", userPhoto);
+
+      setDisplayName(userName);
+      setProfilePicture(userPhoto);
 
       // Hämta sparade barer från Firestore
       const fetchSavedBars = async () => {
@@ -28,12 +35,33 @@ const ProfilePage: React.FC = () => {
           id: doc.id,
           ...doc.data(),
         }));
+
+        // Spara barerna i localStorage
+        localStorage.setItem("savedBars", JSON.stringify(bars));
+
         setSavedBars(
           bars as { id: string; name: string; photoUrl: string | null }[]
         );
       };
 
       fetchSavedBars();
+    }
+  }, []);
+
+  useEffect(() => {
+    // Läs användardata från localStorage vid sidladdning
+    const storedDisplayName = localStorage.getItem("displayName");
+    const storedProfilePicture = localStorage.getItem("profilePicture");
+
+    if (storedDisplayName && storedProfilePicture) {
+      setDisplayName(storedDisplayName);
+      setProfilePicture(storedProfilePicture);
+    }
+
+    // Läs barerna från localStorage
+    const savedBarsFromStorage = localStorage.getItem("savedBars");
+    if (savedBarsFromStorage) {
+      setSavedBars(JSON.parse(savedBarsFromStorage));
     }
   }, []);
 
@@ -63,8 +91,12 @@ const ProfilePage: React.FC = () => {
       const barDocRef = doc(db, "users", user.uid, "savedBars", barId);
       await deleteDoc(barDocRef);
 
-      // Uppdatera lokala listan
-      setSavedBars((prevBars) => prevBars.filter((bar) => bar.id !== barId));
+      // Uppdatera lokala listan och localStorage
+      setSavedBars((prevBars) => {
+        const updatedBars = prevBars.filter((bar) => bar.id !== barId);
+        localStorage.setItem("savedBars", JSON.stringify(updatedBars));
+        return updatedBars;
+      });
     } catch (error) {
       console.error("Failed to delete bar:", error);
     }
