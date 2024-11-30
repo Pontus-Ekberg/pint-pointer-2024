@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
         <div
           className={`${
             isOpen ? "block" : "hidden"
-          } absolute flex flex-col top-10 -left-12 bg-gray-300 border-2 border-black sm:relative sm:flex sm:top-auto sm:left-auto sm:w-auto sm:bg-transparent`}
+          } absolute flex flex-col top-10 -left-12 bg-gray-300 opacity-80 rounded-md sm:relative sm:flex sm:top-auto sm:left-auto sm:w-auto sm:bg-transparent`}
         >
           <a href="/" className="px-4 py-2 sm:inline-block">
             Home

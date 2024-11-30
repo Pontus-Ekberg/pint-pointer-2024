@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../service/Firebase";
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import EditCard from "../components/EditCard";
 import plankimg from "../assets/img/Plankprofile.png";
@@ -10,7 +16,12 @@ const ProfilePage: React.FC = () => {
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [profilePicture, setProfilePicture] = useState<string | null>(null);
   const [savedBars, setSavedBars] = useState<
-    { id: string; name: string; photoUrl: string | null }[]
+    {
+      id: string;
+      name: string;
+      photoUrl: string | null;
+      rating: number | null;
+    }[]
   >([]);
   const navigate = useNavigate();
 
@@ -20,14 +31,12 @@ const ProfilePage: React.FC = () => {
       const userName = user.displayName || "No Name Set";
       const userPhoto = user.photoURL || "https://via.placeholder.com/150";
 
-      // Spara användardata till localStorage
       localStorage.setItem("displayName", userName);
       localStorage.setItem("profilePicture", userPhoto);
 
       setDisplayName(userName);
       setProfilePicture(userPhoto);
 
-      // Hämta sparade barer från Firestore
       const fetchSavedBars = async () => {
         const barsRef = collection(db, "users", user.uid, "savedBars");
         const barsSnapshot = await getDocs(barsRef);
@@ -36,11 +45,14 @@ const ProfilePage: React.FC = () => {
           ...doc.data(),
         }));
 
-        // Spara barerna i localStorage
         localStorage.setItem("savedBars", JSON.stringify(bars));
-
         setSavedBars(
-          bars as { id: string; name: string; photoUrl: string | null }[]
+          bars as {
+            id: string;
+            name: string;
+            photoUrl: string | null;
+            rating: number | null;
+          }[]
         );
       };
 
@@ -49,7 +61,6 @@ const ProfilePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Läs användardata från localStorage vid sidladdning
     const storedDisplayName = localStorage.getItem("displayName");
     const storedProfilePicture = localStorage.getItem("profilePicture");
 
@@ -58,7 +69,6 @@ const ProfilePage: React.FC = () => {
       setProfilePicture(storedProfilePicture);
     }
 
-    // Läs barerna från localStorage
     const savedBarsFromStorage = localStorage.getItem("savedBars");
     if (savedBarsFromStorage) {
       setSavedBars(JSON.parse(savedBarsFromStorage));
@@ -82,7 +92,6 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  // Funktion för att ta bort en bar
   const handleDeleteBar = async (barId: string) => {
     const user = auth.currentUser;
     if (!user) return;
@@ -91,7 +100,6 @@ const ProfilePage: React.FC = () => {
       const barDocRef = doc(db, "users", user.uid, "savedBars", barId);
       await deleteDoc(barDocRef);
 
-      // Uppdatera lokala listan och localStorage
       setSavedBars((prevBars) => {
         const updatedBars = prevBars.filter((bar) => bar.id !== barId);
         localStorage.setItem("savedBars", JSON.stringify(updatedBars));
@@ -99,6 +107,29 @@ const ProfilePage: React.FC = () => {
       });
     } catch (error) {
       console.error("Failed to delete bar:", error);
+    }
+  };
+
+  const handleRatingChange = async (barId: string, newRating: number) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+      const barDocRef = doc(db, "users", user.uid, "savedBars", barId);
+      await updateDoc(barDocRef, { rating: newRating });
+
+      setSavedBars((prevBars) =>
+        prevBars.map((bar) =>
+          bar.id === barId ? { ...bar, rating: newRating } : bar
+        )
+      );
+
+      const updatedBars = savedBars.map((bar) =>
+        bar.id === barId ? { ...bar, rating: newRating } : bar
+      );
+      localStorage.setItem("savedBars", JSON.stringify(updatedBars));
+    } catch (error) {
+      console.error("Failed to update rating:", error);
     }
   };
 
@@ -158,7 +189,23 @@ const ProfilePage: React.FC = () => {
               ) : (
                 <div className="w-16 h-16 bg-gray-400 rounded-md mr-4"></div>
               )}
-              <p className="text-lg font-medium">{bar.name}</p>
+              <div>
+                <p className="text-lg font-medium">{bar.name}</p>
+                <select
+                  value={bar.rating || 0}
+                  onChange={(e) =>
+                    handleRatingChange(bar.id, Number(e.target.value))
+                  }
+                  className="mt-2 bg-white border rounded-md px-2 py-1"
+                >
+                  <option value={0}>No Rating</option>
+                  {[1, 2, 3, 4, 5].map((rating) => (
+                    <option key={rating} value={rating}>
+                      {rating} Star{rating > 1 ? "s" : ""}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <button
                 onClick={() => handleDeleteBar(bar.id)}
                 className="absolute top-2 right-2 px-2 py-1 rounded-full text-sm"
