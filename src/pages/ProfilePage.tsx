@@ -182,7 +182,7 @@ const ProfilePage: React.FC = () => {
             >
               {bar.photoUrl ? (
                 <img
-                  src={bar.photoUrl}
+                  src={bar.photoUrl || "https://via.placeholder.com/150"}
                   alt={bar.name}
                   className="w-16 h-16 object-cover rounded-md mr-4"
                 />

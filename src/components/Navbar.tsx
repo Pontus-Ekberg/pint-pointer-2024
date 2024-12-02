@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useAuth } from "../contexts/AuthContext"; // Importera AuthContext
+import { useAuth } from "../contexts/AuthContext";
 
 const Navbar: React.FC = () => {
-  const { user } = useAuth(); // Hämta användaren från AuthContext
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -12,7 +12,6 @@ const Navbar: React.FC = () => {
   return (
     <nav className="fixed z-50 top-4 right-4">
       <div className="flex justify-between items-center">
-        {/* Hamburger Icon */}
         <button onClick={toggleMenu} className="focus:outline-none sm:hidden">
           <div className="space-y-2">
             <span className="block w-8 h-1 bg-white"></span>
@@ -21,7 +20,6 @@ const Navbar: React.FC = () => {
           </div>
         </button>
 
-        {/* Länkar */}
         <div
           className={`${
             isOpen ? "block" : "hidden"
@@ -33,6 +31,11 @@ const Navbar: React.FC = () => {
           {user && (
             <a href="/profile" className="px-4 py-2 sm:inline-block">
               Profile
+            </a>
+          )}
+          {user && (
+            <a href="/all-bars" className="px-4 py-2 sm:inline-block">
+              Bars
             </a>
           )}
           <a href="/compass" className="px-4 py-2 sm:inline-block">

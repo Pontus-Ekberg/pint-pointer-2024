@@ -6,6 +6,7 @@ import CompassPage from "./pages/CompassPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProfileAvatar from "./components/ProfileIcon";
 import Navbar from "./components/Navbar";
+import AllBarsPage from "./pages/AllBarsPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/compass" element={<CompassPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/all-bars" element={<AllBarsPage />} />
       </Routes>
     </>
   );

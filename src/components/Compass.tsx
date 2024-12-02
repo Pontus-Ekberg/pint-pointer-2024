@@ -160,9 +160,9 @@ const Compass: React.FC = () => {
 
       // Visa BarCard när användaren är inom 20 meter från baren
       if (distanceToTarget < 20) {
-        setShowBarCard(true);
-      } else {
         setShowBarCard(false);
+      } else {
+        setShowBarCard(true);
       }
     }
   }, [userCoords, targetCoords]);
