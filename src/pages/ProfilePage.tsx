@@ -23,56 +23,51 @@ const ProfilePage: React.FC = () => {
       rating: number | null;
     }[]
   >([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = auth.currentUser;
-    if (user) {
-      const userName = user.displayName || "No Name Set";
-      const userPhoto = user.photoURL || "https://via.placeholder.com/150";
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const userName = user.displayName || "No Name Set";
+        const userPhoto = user.photoURL || "https://via.placeholder.com/150";
 
-      localStorage.setItem("displayName", userName);
-      localStorage.setItem("profilePicture", userPhoto);
+        setDisplayName(userName);
+        setProfilePicture(userPhoto);
 
-      setDisplayName(userName);
-      setProfilePicture(userPhoto);
+        const fetchSavedBars = async () => {
+          try {
+            const barsRef = collection(db, "users", user.uid, "savedBars");
+            const barsSnapshot = await getDocs(barsRef);
+            const bars = barsSnapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
 
-      const fetchSavedBars = async () => {
-        const barsRef = collection(db, "users", user.uid, "savedBars");
-        const barsSnapshot = await getDocs(barsRef);
-        const bars = barsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+            setSavedBars(
+              bars as {
+                id: string;
+                name: string;
+                photoUrl: string | null;
+                rating: number | null;
+              }[]
+            );
+          } catch (error) {
+            console.error("Error fetching saved bars from Firebase:", error);
+          }
+        };
 
-        localStorage.setItem("savedBars", JSON.stringify(bars));
-        setSavedBars(
-          bars as {
-            id: string;
-            name: string;
-            photoUrl: string | null;
-            rating: number | null;
-          }[]
-        );
-      };
+        fetchSavedBars();
+      } else {
+        console.log("No user logged in");
+        setDisplayName(null);
+        setProfilePicture(null);
+        setSavedBars([]);
+      }
+      setLoading(false);
+    });
 
-      fetchSavedBars();
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedDisplayName = localStorage.getItem("displayName");
-    const storedProfilePicture = localStorage.getItem("profilePicture");
-
-    if (storedDisplayName && storedProfilePicture) {
-      setDisplayName(storedDisplayName);
-      setProfilePicture(storedProfilePicture);
-    }
-
-    const savedBarsFromStorage = localStorage.getItem("savedBars");
-    if (savedBarsFromStorage) {
-      setSavedBars(JSON.parse(savedBarsFromStorage));
-    }
+    return () => unsubscribe();
   }, []);
 
   const handleLogout = async () => {
@@ -102,7 +97,6 @@ const ProfilePage: React.FC = () => {
 
       setSavedBars((prevBars) => {
         const updatedBars = prevBars.filter((bar) => bar.id !== barId);
-        localStorage.setItem("savedBars", JSON.stringify(updatedBars));
         return updatedBars;
       });
     } catch (error) {
@@ -123,15 +117,14 @@ const ProfilePage: React.FC = () => {
           bar.id === barId ? { ...bar, rating: newRating } : bar
         )
       );
-
-      const updatedBars = savedBars.map((bar) =>
-        bar.id === barId ? { ...bar, rating: newRating } : bar
-      );
-      localStorage.setItem("savedBars", JSON.stringify(updatedBars));
     } catch (error) {
       console.error("Failed to update rating:", error);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col items-center">
@@ -149,7 +142,7 @@ const ProfilePage: React.FC = () => {
         />
 
         <p className="mt-4 text-lg text-white font-medium text-center">
-          {displayName}
+          {displayName || "No Name Set"}
         </p>
       </div>
 
