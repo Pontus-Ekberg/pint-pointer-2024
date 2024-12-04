@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { db } from "../service/Firebase";
 import { collectionGroup, getDocs, DocumentData } from "firebase/firestore";
 
+// Typdefinition för en Bar
 type Bar = {
   id: string;
   name: string;
   photoUrl: string | null;
   rating: number;
+  ratingCount: number; // Ny egenskap för antal röster
 };
 
 const AllBarsPage: React.FC = () => {
@@ -53,6 +55,7 @@ const AllBarsPage: React.FC = () => {
             name,
             photoUrl,
             rating: parseFloat((totalRating / ratingCount).toFixed(2)),
+            ratingCount, // Lägg till antalet röster
           })
         );
 
@@ -94,7 +97,8 @@ const AllBarsPage: React.FC = () => {
               <div>
                 <p className="text-lg font-medium">{bar.name}</p>
                 <p className="text-sm text-gray-700">
-                  Rating: {`${bar.rating} Stars`}
+                  Average Rating: {`${bar.rating} Stars`} ({bar.ratingCount}{" "}
+                  votes)
                 </p>
               </div>
             </div>
