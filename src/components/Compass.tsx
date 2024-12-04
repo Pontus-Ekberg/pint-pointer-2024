@@ -4,8 +4,8 @@ import { auth, db } from "../service/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import keg from "../assets/img/Keg.png";
 import pripp from "../assets/img/Pripp.png";
-import unseeImg from "../assets/img/unsee.png"; // Bild för att dölja
-import seeImg from "../assets/img/see.png"; // Bild för att visa
+import unseeImg from "../assets/img/unsee.png";
+import seeImg from "../assets/img/see.png";
 import BarCard from "./BarCard";
 
 // Funktion för att beräkna azimut
