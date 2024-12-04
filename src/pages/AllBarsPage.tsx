@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { db } from "../service/Firebase";
 import { collectionGroup, getDocs, DocumentData } from "firebase/firestore";
 
-// Typdefinition för en Bar
 type Bar = {
   id: string;
   name: string;
@@ -11,38 +10,52 @@ type Bar = {
 };
 
 const AllBarsPage: React.FC = () => {
-  const [allBars, setAllBars] = useState<Bar[]>([]); // State för alla barer
-  const [loading, setLoading] = useState<boolean>(true); // State för att hålla koll på laddning
+  const [allBars, setAllBars] = useState<Bar[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchAllBars = async () => {
       try {
         const barsSnapshot = await getDocs(collectionGroup(db, "savedBars"));
 
-        const bars: Bar[] = barsSnapshot.docs
-          .map((doc) => {
-            const data = doc.data() as DocumentData;
+        const barsMap = new Map<
+          string,
+          { photoUrl: string | null; totalRating: number; ratingCount: number }
+        >();
 
-            // Typkontroll för att säkerställa att alla fält finns och har rätt typ
-            if (
-              typeof data.name === "string" &&
-              (data.photoUrl === null || typeof data.photoUrl === "string") &&
-              typeof data.rating === "number"
-            ) {
-              return {
-                id: doc.id,
-                name: data.name,
+        barsSnapshot.docs.forEach((doc) => {
+          const data = doc.data() as DocumentData;
+
+          if (
+            typeof data.name === "string" &&
+            (data.photoUrl === null || typeof data.photoUrl === "string") &&
+            typeof data.rating === "number"
+          ) {
+            const barName = data.name;
+
+            if (barsMap.has(barName)) {
+              const existingBar = barsMap.get(barName)!;
+              existingBar.totalRating += data.rating;
+              existingBar.ratingCount += 1;
+            } else {
+              barsMap.set(barName, {
                 photoUrl: data.photoUrl || null,
-                rating: data.rating,
-              };
+                totalRating: data.rating,
+                ratingCount: 1,
+              });
             }
+          }
+        });
 
-            // Returnera null om objektet inte är giltigt
-            return null;
+        const bars: Bar[] = Array.from(barsMap.entries()).map(
+          ([name, { photoUrl, totalRating, ratingCount }]) => ({
+            id: name,
+            name,
+            photoUrl,
+            rating: parseFloat((totalRating / ratingCount).toFixed(2)),
           })
-          .filter((bar): bar is Bar => bar !== null); // Filtrera bort null-objekt
+        );
 
-        // Sortera barerna efter högst rating först
         const sortedBars = bars.sort((a, b) => b.rating - a.rating);
 
         setAllBars(sortedBars);
