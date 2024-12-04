@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../service/Firebase";
-import claus from "../assets/img/Claus.png";
+import confetti from "../assets/img/Confettipur.png";
 import loginimg from "../assets/img/Planklogin.png";
+import claus from "../assets/img/Claus.png";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -40,7 +41,7 @@ const LoginPage: React.FC = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
           required
         />
         <input
@@ -48,12 +49,12 @@ const LoginPage: React.FC = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
           required
         />
         <button
           type="submit"
-          className="w-36 bg-gray-300 py-2 border-2 border-black hover:bg-blue-600 transition"
+          className="w-36 bg-gray-300 z-20 py-2 border-2 border-black hover:bg-blue-600 transition"
         >
           Login
         </button>
@@ -62,7 +63,12 @@ const LoginPage: React.FC = () => {
         <a href="signup">SignUp</a>
       </button>
       <img
-        className="absolute z-10 top-[350px] right-[125px] -rotate-[8deg]"
+        className="absolute z-10 top-[320px] left-[95px] -rotate-[8deg] w-72"
+        src={confetti}
+        alt=""
+      />
+      <img
+        className="absolute z-10 top-[100px] right-[130px] rotate-[15deg]"
         src={claus}
         alt=""
       />
