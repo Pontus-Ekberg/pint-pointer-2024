@@ -4,6 +4,8 @@ import { auth, db } from "../service/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import keg from "../assets/img/Keg.png";
 import pripp from "../assets/img/Pripp.png";
+import unseeImg from "../assets/img/unsee.png"; // Bild för att dölja
+import seeImg from "../assets/img/see.png"; // Bild för att visa
 import BarCard from "./BarCard";
 
 // Funktion för att beräkna azimut
@@ -69,6 +71,7 @@ const Compass: React.FC = () => {
   const [distance, setDistance] = useState<number | null>(null);
   const [radius, setRadius] = useState(3); // Standard är 3 km
   const [showBarCard, setShowBarCard] = useState(false);
+  const [showBarName, setShowBarName] = useState(false); // Starta med att namn är dolt
 
   // Uppdaterar användarens position
   useEffect(() => {
@@ -160,9 +163,9 @@ const Compass: React.FC = () => {
 
       // Visa BarCard när användaren är inom 20 meter från baren
       if (distanceToTarget < 20) {
-        setShowBarCard(false);
-      } else {
         setShowBarCard(true);
+      } else {
+        setShowBarCard(false);
       }
     }
   }, [userCoords, targetCoords]);
@@ -230,20 +233,39 @@ const Compass: React.FC = () => {
     }
   };
 
+  // Toggle för att visa eller dölja barens namn
+  const toggleBarName = () => {
+    setShowBarName(!showBarName);
+  };
+
   return (
     <LoadScript
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
       libraries={["places"]}
     >
       <div className="mt-14 w-screen h-screen flex flex-col justify-center items-center">
-        {compassHeading !== null && (
-          <p className="text-lg font-semibold">
+        {/* Ta bort raden för att visa nuvarande heading */}
+        {/* <p className="text-lg font-semibold">
             Current Heading: {compassHeading.toFixed(2)}°
-          </p>
+          </p> */}
+
+        {/* Använd bilder för att visa/dölja barens namn */}
+        <div onClick={toggleBarName}>
+          <img
+            src={showBarName ? unseeImg : seeImg}
+            alt={showBarName ? "Hide" : "Show"}
+            className="w-12 h-12 mt-2 cursor-pointer"
+          />
+        </div>
+
+        {showBarName && barName && (
+          <p className="text-lg text-white font-semibold">{barName}</p>
         )}
-        {barName && <p className="text-lg font-semibold">{barName}</p>}
+
         {distance !== null && (
-          <p className="text-md font-bold">{distance.toFixed(2)} meter</p>
+          <p className="text-md text-white font-bold">
+            {distance.toFixed(2)} meter
+          </p>
         )}
 
         <div className="relative w-[280px] h-[320px] rounded-full mx-auto">

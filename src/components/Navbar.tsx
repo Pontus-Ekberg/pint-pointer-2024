@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
           )}
           {user && (
             <a href="/all-bars" className="px-4 py-2 sm:inline-block">
-              Bars
+              Toprated bars
             </a>
           )}
           <a href="/compass" className="px-4 py-2 sm:inline-block">
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
           {user && (
             <button
               onClick={handleLogout}
-              className="px-4 py-2 sm:inline-block text-red-500"
+              className="px-4 py-2 sm:inline-block text-red-500 text-left"
             >
               Logout
             </button>
