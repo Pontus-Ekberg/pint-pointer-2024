@@ -68,7 +68,7 @@ const LoginPage: React.FC = () => {
         alt=""
       />
       <img
-        className="absolute z-10 top-[100px] right-[130px] rotate-[15deg]"
+        className="absolute z-10 top-[150px] right-[130px] rotate-[15deg]"
         src={claus}
         alt=""
       />

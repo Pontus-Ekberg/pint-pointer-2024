@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../service/Firebase";
 import beerpink from "../assets/img/Beerpink.png";
 import signupimg from "../assets/img/Planksignup.png";
+import faceimg from "../assets/img/Faceyellow.png";
 
 const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -57,7 +58,7 @@ const SignUpPage: React.FC = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
           required
         />
         <input
@@ -65,7 +66,7 @@ const SignUpPage: React.FC = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
           required
         />
         <input
@@ -73,18 +74,23 @@ const SignUpPage: React.FC = () => {
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="w-full p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
           required
         />
         <button
           type="submit"
-          className="w-36 bg-gray-300 py-2 border-2 border-black transition"
+          className="w-36 z-20 bg-gray-300 py-2 border-2 border-black transition"
         >
           Sign Up
         </button>
         <img
-          className="absolute top-[270px] left-[70px]"
+          className="absolute top-[250px] left-[85px]"
           src={beerpink}
+          alt=""
+        />
+        <img
+          className="absolute top-[10px] z-10 right-[100px] rotate-[25deg]"
+          src={faceimg}
           alt=""
         />
       </form>
