@@ -1,36 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../service/Firebase";
-import { collectionGroup, getDocs } from "firebase/firestore";
+import { collectionGroup, getDocs, DocumentData } from "firebase/firestore";
+
+// Typdefinition för en Bar
+type Bar = {
+  id: string;
+  name: string;
+  photoUrl: string | null;
+  rating: number;
+};
 
 const AllBarsPage: React.FC = () => {
-  const [allBars, setAllBars] = useState<
-    {
-      id: string;
-      name: string;
-      photoUrl: string | null;
-      rating: number | null;
-    }[]
-  >([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [allBars, setAllBars] = useState<Bar[]>([]); // State för alla barer
+  const [loading, setLoading] = useState<boolean>(true); // State för att hålla koll på laddning
 
   useEffect(() => {
     const fetchAllBars = async () => {
       try {
         const barsSnapshot = await getDocs(collectionGroup(db, "savedBars"));
 
-        const bars = barsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const bars: Bar[] = barsSnapshot.docs
+          .map((doc) => {
+            const data = doc.data() as DocumentData;
 
-        setAllBars(
-          bars as {
-            id: string;
-            name: string;
-            photoUrl: string | null;
-            rating: number | null;
-          }[]
-        );
+            // Typkontroll för att säkerställa att alla fält finns och har rätt typ
+            if (
+              typeof data.name === "string" &&
+              (data.photoUrl === null || typeof data.photoUrl === "string") &&
+              typeof data.rating === "number"
+            ) {
+              return {
+                id: doc.id,
+                name: data.name,
+                photoUrl: data.photoUrl || null,
+                rating: data.rating,
+              };
+            }
+
+            // Returnera null om objektet inte är giltigt
+            return null;
+          })
+          .filter((bar): bar is Bar => bar !== null); // Filtrera bort null-objekt
+
+        // Sortera barerna efter högst rating först
+        const sortedBars = bars.sort((a, b) => b.rating - a.rating);
+
+        setAllBars(sortedBars);
       } catch (error) {
         console.error("Error fetching bars:", error);
       } finally {
@@ -66,7 +81,7 @@ const AllBarsPage: React.FC = () => {
               <div>
                 <p className="text-lg font-medium">{bar.name}</p>
                 <p className="text-sm text-gray-700">
-                  Rating: {bar.rating ? `${bar.rating} Stars` : "No Rating"}
+                  Rating: {`${bar.rating} Stars`}
                 </p>
               </div>
             </div>
