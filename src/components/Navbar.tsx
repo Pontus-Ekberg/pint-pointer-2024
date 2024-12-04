@@ -1,12 +1,24 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../service/Firebase";
 import { useAuth } from "../contexts/AuthContext";
 
 const Navbar: React.FC = () => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed: ", error);
+    }
   };
 
   return (
@@ -41,6 +53,14 @@ const Navbar: React.FC = () => {
           <a href="/compass" className="px-4 py-2 sm:inline-block">
             Pointer
           </a>
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 sm:inline-block text-red-500"
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

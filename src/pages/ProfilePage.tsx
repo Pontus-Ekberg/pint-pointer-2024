@@ -7,7 +7,6 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 import EditCard from "../components/EditCard";
 import plankimg from "../assets/img/Plankprofile.png";
 
@@ -24,7 +23,6 @@ const ProfilePage: React.FC = () => {
     }[]
   >([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -69,15 +67,6 @@ const ProfilePage: React.FC = () => {
 
     return () => unsubscribe();
   }, []);
-
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      navigate("/");
-    } catch (error) {
-      console.error("Logout failed: ", error);
-    }
-  };
 
   const handleSaveSuccess = () => {
     const user = auth.currentUser;
@@ -155,13 +144,6 @@ const ProfilePage: React.FC = () => {
           className="px-6 py-2 bg-gray-300 border-2 border-black"
         >
           Edit Profile
-        </button>
-
-        <button
-          onClick={handleLogout}
-          className="px-6 py-2 bg-gray-300 border-2 border-black"
-        >
-          Logout
         </button>
       </div>
 
