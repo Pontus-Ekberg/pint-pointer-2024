@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { LoadScript } from "@react-google-maps/api";
+import { LoadScript, Libraries } from "@react-google-maps/api";
 import { auth, db } from "../service/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import keg from "../assets/img/Keg.png";
@@ -7,6 +7,9 @@ import pripp from "../assets/img/Pripp.png";
 import unseeImg from "../assets/img/unsee.png";
 import seeImg from "../assets/img/see.png";
 import BarCard from "./BarCard";
+
+// Flytta libraries utanför komponenten
+const libraries: Libraries = ["places"];
 
 // Funktion för att beräkna azimut
 const calculateAzimuth = (
@@ -71,7 +74,7 @@ const Compass: React.FC = () => {
   const [distance, setDistance] = useState<number | null>(null);
   const [radius, setRadius] = useState(3); // Standard är 3 km
   const [showBarCard, setShowBarCard] = useState(false);
-  const [showBarName, setShowBarName] = useState(false); // Starta med att namn är dolt
+  const [showBarName, setShowBarName] = useState(false);
 
   // Uppdaterar användarens position
   useEffect(() => {
@@ -241,7 +244,7 @@ const Compass: React.FC = () => {
   return (
     <LoadScript
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
-      libraries={["places"]}
+      libraries={libraries} // Använd den statiska arrayen
     >
       <div className="mt-[90px] w-screen flex flex-col justify-center items-center">
         {/* Ta bort raden för att visa nuvarande heading */}
