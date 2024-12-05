@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import { db } from "../service/Firebase";
 import { collectionGroup, getDocs, DocumentData } from "firebase/firestore";
 import topratedimg from "../assets/img/Toprated.png";
+import BarDetails from "../components/BarDetails";
 
-// Typdefinition för en Bar
-type Bar = {
+export type Bar = {
   id: string;
   name: string;
   photoUrl: string | null;
   rating: number;
-  ratingCount: number; // Ny egenskap för antal röster
+  ratingCount: number;
 };
 
 const AllBarsPage: React.FC = () => {
   const [allBars, setAllBars] = useState<Bar[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectedBar, setSelectedBar] = useState<Bar | null>(null);
 
   useEffect(() => {
     const fetchAllBars = async () => {
@@ -56,7 +57,7 @@ const AllBarsPage: React.FC = () => {
             name,
             photoUrl,
             rating: parseFloat((totalRating / ratingCount).toFixed(2)),
-            ratingCount, // Lägg till antalet röster
+            ratingCount,
           })
         );
 
@@ -73,6 +74,14 @@ const AllBarsPage: React.FC = () => {
     fetchAllBars();
   }, []);
 
+  const handleCardClick = (bar: Bar) => {
+    setSelectedBar(bar);
+  };
+
+  const closeModal = () => {
+    setSelectedBar(null);
+  };
+
   return (
     <div className="flex flex-col items-center">
       <img
@@ -88,7 +97,8 @@ const AllBarsPage: React.FC = () => {
           {allBars.map((bar) => (
             <div
               key={bar.id}
-              className="flex items-center bg-gray-300 opacity-90 p-4 rounded-md shadow-md mb-4 relative"
+              className="flex items-center bg-gray-300 opacity-90 p-4 rounded-md shadow-md mb-4 relative cursor-pointer"
+              onClick={() => handleCardClick(bar)} // Klicka på kortet för att visa barens detaljer
             >
               {bar.photoUrl ? (
                 <img
@@ -112,6 +122,8 @@ const AllBarsPage: React.FC = () => {
       ) : (
         <p className="mt-4 text-gray-500">No bars have been rated yet!</p>
       )}
+
+      {selectedBar && <BarDetails bar={selectedBar} onClose={closeModal} />}
     </div>
   );
 };
