@@ -22,6 +22,12 @@ const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
         )}
         <p className="mt-4">Rating: {bar.rating} Stars</p>
         <p>Votes: {bar.ratingCount}</p>
+
+        {/* Visa adressen här */}
+        {bar.address && (
+          <p className="mt-2 text-gray-600">Address: {bar.address}</p>
+        )}
+
         <button
           onClick={onClose}
           className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"

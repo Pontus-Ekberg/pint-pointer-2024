@@ -8,7 +8,6 @@ import unseeImg from "../assets/img/unsee.png";
 import seeImg from "../assets/img/see.png";
 import BarCard from "./BarCard";
 
-// Flytta libraries utanför komponenten
 const libraries: Libraries = ["places"];
 
 // Funktion för att beräkna azimut
@@ -200,7 +199,7 @@ const Compass: React.FC = () => {
 
           // Hämta adressen från baren om den finns
           const address = bar.vicinity || null;
-          setBarAddress(address); // Sätt adressen
+          setBarAddress(address);
         } else {
           alert(
             "Could not retrieve location information for the selected bar."
@@ -231,6 +230,7 @@ const Compass: React.FC = () => {
       await setDoc(barRef, {
         name: barName || "Unknown Bar",
         photoUrl: barPhotoUrl,
+        address: barAddress || null,
         timestamp: new Date(),
       });
       alert(`${barName} har sparats i din profil!`);
@@ -251,12 +251,6 @@ const Compass: React.FC = () => {
       libraries={libraries}
     >
       <div className="mt-[90px] w-screen flex flex-col justify-center items-center">
-        {/* Ta bort raden för att visa nuvarande heading */}
-        {/* <p className="text-lg font-semibold">
-            Current Heading: {compassHeading.toFixed(2)}°
-          </p> */}
-
-        {/* Använd bilder för att visa/dölja barens namn */}
         <div onClick={toggleBarName}>
           <img
             src={showBarName ? unseeImg : seeImg}
@@ -267,10 +261,6 @@ const Compass: React.FC = () => {
 
         {showBarName && barName && (
           <p className="text-lg text-white font-semibold">{barName}</p>
-        )}
-
-        {barAddress && (
-          <p className="text-md text-white font-light">{barAddress}</p>
         )}
 
         {distance !== null && (

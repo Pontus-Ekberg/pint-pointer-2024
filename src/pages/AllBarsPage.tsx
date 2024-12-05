@@ -10,6 +10,7 @@ export type Bar = {
   photoUrl: string | null;
   rating: number;
   ratingCount: number;
+  address: string | null;
 };
 
 const AllBarsPage: React.FC = () => {
@@ -24,7 +25,12 @@ const AllBarsPage: React.FC = () => {
 
         const barsMap = new Map<
           string,
-          { photoUrl: string | null; totalRating: number; ratingCount: number }
+          {
+            photoUrl: string | null;
+            totalRating: number;
+            ratingCount: number;
+            address: string | null;
+          }
         >();
 
         barsSnapshot.docs.forEach((doc) => {
@@ -36,6 +42,7 @@ const AllBarsPage: React.FC = () => {
             typeof data.rating === "number"
           ) {
             const barName = data.name;
+            const address = data.address || null;
 
             if (barsMap.has(barName)) {
               const existingBar = barsMap.get(barName)!;
@@ -46,18 +53,20 @@ const AllBarsPage: React.FC = () => {
                 photoUrl: data.photoUrl || null,
                 totalRating: data.rating,
                 ratingCount: 1,
+                address,
               });
             }
           }
         });
 
         const bars: Bar[] = Array.from(barsMap.entries()).map(
-          ([name, { photoUrl, totalRating, ratingCount }]) => ({
+          ([name, { photoUrl, totalRating, ratingCount, address }]) => ({
             id: name,
             name,
             photoUrl,
             rating: parseFloat((totalRating / ratingCount).toFixed(2)),
             ratingCount,
+            address,
           })
         );
 
@@ -98,7 +107,7 @@ const AllBarsPage: React.FC = () => {
             <div
               key={bar.id}
               className="flex items-center bg-gray-300 opacity-90 p-4 rounded-md shadow-md mb-4 relative cursor-pointer"
-              onClick={() => handleCardClick(bar)} // Klicka på kortet för att visa barens detaljer
+              onClick={() => handleCardClick(bar)}
             >
               {bar.photoUrl ? (
                 <img
