@@ -5,11 +5,13 @@ import { auth } from "../service/Firebase";
 const BarCard = ({
   name,
   photoUrl,
+  address,
   onClose,
   onSave,
 }: {
   name: string;
   photoUrl: string | null;
+  address: string | null;
   onClose: () => void;
   onSave: () => void;
 }) => {
@@ -26,6 +28,7 @@ const BarCard = ({
   return (
     <div className="bg-gray-200 z-40 border-2 border-black p-10 shadow-md absolute top-10">
       <h2 className="text-xl font-semibold">{name}</h2>
+
       {photoUrl ? (
         <img
           src={photoUrl}
@@ -35,6 +38,9 @@ const BarCard = ({
       ) : (
         <p>No photo available</p>
       )}
+
+      {address && <p className="text-sm text-gray-600 mt-2">{address}</p>}
+
       <div className="flex justify-center space-x-2 mt-6">
         <button
           className="bg-gray-300 border-2 border-black px-2 py-1"

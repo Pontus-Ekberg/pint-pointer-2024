@@ -70,9 +70,10 @@ const Compass: React.FC = () => {
   });
   const [barName, setBarName] = useState<string | null>(null);
   const [barPhotoUrl, setBarPhotoUrl] = useState<string | null>(null);
+  const [barAddress, setBarAddress] = useState<string | null>(null);
   const compassCircleRef = useRef<HTMLDivElement | null>(null);
   const [distance, setDistance] = useState<number | null>(null);
-  const [radius, setRadius] = useState(3); // Standard är 3 km
+  const [radius, setRadius] = useState(3);
   const [showBarCard, setShowBarCard] = useState(false);
   const [showBarName, setShowBarName] = useState(false);
 
@@ -173,7 +174,6 @@ const Compass: React.FC = () => {
     }
   }, [userCoords, targetCoords]);
 
-  // Funktion för att hitta en slumpad bar
   const findRandomBar = async () => {
     if (!userCoords) return;
 
@@ -197,6 +197,10 @@ const Compass: React.FC = () => {
           setTargetCoords({ lat, lon });
           setBarName(bar.name || "Okänd Bar");
           setBarPhotoUrl(bar.photos ? bar.photos[0]?.getUrl() : null);
+
+          // Hämta adressen från baren om den finns
+          const address = bar.vicinity || null;
+          setBarAddress(address); // Sätt adressen
         } else {
           alert(
             "Could not retrieve location information for the selected bar."
@@ -244,7 +248,7 @@ const Compass: React.FC = () => {
   return (
     <LoadScript
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
-      libraries={libraries} // Använd den statiska arrayen
+      libraries={libraries}
     >
       <div className="mt-[90px] w-screen flex flex-col justify-center items-center">
         {/* Ta bort raden för att visa nuvarande heading */}
@@ -263,6 +267,10 @@ const Compass: React.FC = () => {
 
         {showBarName && barName && (
           <p className="text-lg text-white font-semibold">{barName}</p>
+        )}
+
+        {barAddress && (
+          <p className="text-md text-white font-light">{barAddress}</p>
         )}
 
         {distance !== null && (
@@ -287,6 +295,7 @@ const Compass: React.FC = () => {
           <BarCard
             name={barName}
             photoUrl={barPhotoUrl}
+            address={barAddress || null}
             onClose={() => setShowBarCard(false)}
             onSave={saveBarToFirestore}
           />
