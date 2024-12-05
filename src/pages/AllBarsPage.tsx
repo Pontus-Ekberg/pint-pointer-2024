@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../service/Firebase";
 import { collectionGroup, getDocs, DocumentData } from "firebase/firestore";
+import topratedimg from "../assets/img/Toprated.png";
 
 // Typdefinition för en Bar
 type Bar = {
@@ -74,7 +75,11 @@ const AllBarsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-3xl font-bold mt-8">All Rated Bars</h1>
+      <img
+        className="mr-24 -rotate-[12deg] w-[220px]"
+        src={topratedimg}
+        alt=""
+      />
 
       {loading ? (
         <p className="mt-4 text-gray-500">Loading...</p>

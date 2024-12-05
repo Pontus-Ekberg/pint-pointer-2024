@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../service/Firebase";
 import { useAuth } from "../contexts/AuthContext";
+import hamburger from "../assets/img/Burger.png";
 
 const Navbar: React.FC = () => {
   const { user } = useAuth();
@@ -25,11 +26,7 @@ const Navbar: React.FC = () => {
     <nav className="fixed z-50 top-4 right-4">
       <div className="flex justify-between items-center">
         <button onClick={toggleMenu} className="focus:outline-none sm:hidden">
-          <div className="space-y-2">
-            <span className="block w-8 h-1 bg-white"></span>
-            <span className="block w-8 h-1 bg-white"></span>
-            <span className="block w-8 h-1 bg-white"></span>
-          </div>
+          <img src={hamburger} alt="Menu" className="w-10 h-10" />
         </button>
 
         <div

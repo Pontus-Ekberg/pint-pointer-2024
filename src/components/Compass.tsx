@@ -243,7 +243,7 @@ const Compass: React.FC = () => {
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
       libraries={["places"]}
     >
-      <div className="mt-14 w-screen h-screen flex flex-col justify-center items-center">
+      <div className="mt-[90px] w-screen flex flex-col justify-center items-center">
         {/* Ta bort raden för att visa nuvarande heading */}
         {/* <p className="text-lg font-semibold">
             Current Heading: {compassHeading.toFixed(2)}°
