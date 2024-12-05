@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "../service/Firebase";
 import beerguy from "../assets/img/Beerguyblue.png";
-import clock from "../assets/img/Clock.png";
+import clock from "../assets/img/fixedclock.png";
 import plank from "../assets/img/Plank.png";
+import cowkorv from "../assets/img/Cowkorv.png";
 
 const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -41,8 +42,13 @@ const HomePage = () => {
           alt=""
         />
         <img
-          className="absolute -rotate-[10deg] z-10 top-[150px] -left-[50px]"
+          className="absolute -rotate-[10deg] z-10 top-[150px] -left-[80px]"
           src={clock}
+          alt=""
+        />
+        <img
+          className="absolute rotate-[10deg] z-10 top-[100px] -right-[50px] w-48"
+          src={cowkorv}
           alt=""
         />
       </div>
