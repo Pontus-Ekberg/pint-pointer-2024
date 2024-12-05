@@ -46,7 +46,7 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="relative overflow-hidden h-screen flex flex-col items-center">
-      <img className="mx-auto w-[250px]" src={signupimg} alt="" />
+      <img className="mx-auto w-[200px]" src={signupimg} alt="" />
       <form
         onSubmit={handleSignUp}
         className="flex flex-col relative items-center w-80 p-6"

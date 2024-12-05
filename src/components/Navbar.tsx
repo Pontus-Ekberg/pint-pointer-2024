@@ -13,8 +13,13 @@ const Navbar: React.FC = () => {
     setIsOpen((prev) => !prev);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   const handleLogout = async () => {
     try {
+      closeMenu();
       await auth.signOut();
       navigate("/");
     } catch (error) {
@@ -23,7 +28,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed z-50 top-4 right-4">
+    <nav className="fixed z-50 top-4 right-2">
       <div className="flex justify-between items-center">
         <button onClick={toggleMenu} className="focus:outline-none sm:hidden">
           <img src={hamburger} alt="Menu" className="w-10 h-10" />
@@ -34,20 +39,32 @@ const Navbar: React.FC = () => {
             isOpen ? "block" : "hidden"
           } absolute flex flex-col top-10 -left-12 bg-gray-300 opacity-80 rounded-md sm:relative sm:flex sm:top-auto sm:left-auto sm:w-auto sm:bg-transparent`}
         >
-          <a href="/" className="px-4 py-2 sm:inline-block">
+          <a href="/" className="px-4 py-2 sm:inline-block" onClick={closeMenu}>
             Home
           </a>
           {user && (
-            <a href="/profile" className="px-4 py-2 sm:inline-block">
+            <a
+              href="/profile"
+              className="px-4 py-2 sm:inline-block"
+              onClick={closeMenu}
+            >
               Profile
             </a>
           )}
           {user && (
-            <a href="/all-bars" className="px-4 py-2 sm:inline-block">
+            <a
+              href="/all-bars"
+              className="px-4 py-2 sm:inline-block"
+              onClick={closeMenu}
+            >
               Toprated bars
             </a>
           )}
-          <a href="/compass" className="px-4 py-2 sm:inline-block">
+          <a
+            href="/compass"
+            className="px-4 py-2 sm:inline-block"
+            onClick={closeMenu}
+          >
             Pointer
           </a>
           {user && (

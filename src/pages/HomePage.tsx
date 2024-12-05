@@ -18,7 +18,7 @@ const HomePage = () => {
 
   return (
     <div className="overflow-hidden h-screen w-screen relative">
-      <img className="mx-auto w-[250px]" src={plank} alt="" />
+      <img className="mx-auto w-[200px]" src={plank} alt="" />
       <div className="flex flex-col justify-center mt-12">
         <button className="bg-gray-300 border-2 border-black z-20 h-10 mx-28">
           <a href="/compass">Point!</a>

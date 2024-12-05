@@ -30,7 +30,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="relative overflow-hidden h-screen flex flex-col items-center">
-      <img className="mx-auto w-[250px]" src={loginimg} alt="" />
+      <img className="mx-auto w-[200px]" src={loginimg} alt="" />
       <form
         onSubmit={handleLogin}
         className="flex flex-col items-center w-80 p-6"
@@ -59,7 +59,7 @@ const LoginPage: React.FC = () => {
           Login
         </button>
       </form>
-      <button className="mt-[250px] z-20 bg-gray-300 border-2 border-black w-32 h-10">
+      <button className="mt-[210px] z-20 bg-gray-300 border-2 border-black w-32 h-10">
         <a href="signup">SignUp</a>
       </button>
       <img
