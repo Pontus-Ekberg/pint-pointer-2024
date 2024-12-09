@@ -7,6 +7,8 @@ import pripp from "../assets/img/Pripp.png";
 import unseeImg from "../assets/img/unsee.png";
 import seeImg from "../assets/img/see.png";
 import BarCard from "./BarCard";
+import skumol from "../assets/img/skumol.png";
+import ol from "../assets/img/ol.png";
 
 const libraries: Libraries = ["places"];
 
@@ -293,7 +295,10 @@ const Compass: React.FC = () => {
 
         <div className="flex items-center space-x-4 mt-4">
           <select
-            className="bg-gray-300 px-4 py-2 border-2 border-black shadow-sm"
+            className="bg-cover bg-center rounded-lg px-4 py-2 border-2 border-black shadow-sm"
+            style={{
+              backgroundImage: `url(${ol})`,
+            }}
             value={radius}
             onChange={(e) => setRadius(Number(e.target.value))}
           >
@@ -305,7 +310,10 @@ const Compass: React.FC = () => {
           </select>
 
           <button
-            className="bg-gray-300 border-2 border-black px-4 py-2"
+            className="bg-cover bg-center rounded-lg border-2 border-black px-4 py-2"
+            style={{
+              backgroundImage: `url(${ol})`,
+            }}
             onClick={findRandomBar}
           >
             Find bar: {radius} km
@@ -314,7 +322,11 @@ const Compass: React.FC = () => {
 
         {!hasPermission && (
           <button
-            className="absolute z-40 bg-gray-300 border-2 border-black px-4 py-2 mx-10"
+            className="absolute z-40 bg-cover bg-center rounded-lg border-2 border-black px-4 py-2 mx-10
+            "
+            style={{
+              backgroundImage: `url(${skumol})`,
+            }}
             onClick={handleOrientationPermission}
           >
             Ge tillstånd för att använda kompass
