@@ -8,6 +8,8 @@ import { auth } from "../service/Firebase";
 import confetti from "../assets/img/Confettipur.png";
 import loginimg from "../assets/img/Planklogin.png";
 import claus from "../assets/img/Claus.png";
+import skumol from "../assets/img/skumol.png";
+import ol from "../assets/img/ol.png";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -87,7 +89,10 @@ const LoginPage: React.FC = () => {
         />
         <button
           type="submit"
-          className="w-36 bg-gray-300 z-20 py-2 border-2 border-black hover:bg-blue-600 transition"
+          className="w-36 bg-cover bg-center rounded-lg z-20 py-2 border-2 border-black hover:bg-blue-600 transition"
+          style={{
+            backgroundImage: `url(${skumol})`,
+          }}
         >
           Login
         </button>
@@ -128,7 +133,12 @@ const LoginPage: React.FC = () => {
         </div>
       )}
 
-      <button className="mt-48 z-20 bg-gray-300 border-2 border-black w-32 h-10">
+      <button
+        className="mt-48 z-20 bg-cover bg-center rounded-lg border-2 border-black w-32 h-10"
+        style={{
+          backgroundImage: `url(${ol})`,
+        }}
+      >
         <a href="signup">SignUp</a>
       </button>
       <img
