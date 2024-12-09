@@ -3,6 +3,8 @@ import { db } from "../service/Firebase";
 import { collectionGroup, getDocs, DocumentData } from "firebase/firestore";
 import topratedimg from "../assets/img/Toprated.png";
 import BarDetails from "../components/BarDetails";
+import ratingbeer from "../assets/img/beer-1669275_960_720.webp";
+//import halfbeer from "../assets/img/halfbier.png";
 
 export type Bar = {
   id: string;
@@ -91,6 +93,36 @@ const AllBarsPage: React.FC = () => {
     setSelectedBar(null);
   };
 
+  const renderRatingImages = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const images = [];
+
+    for (let i = 0; i < fullStars; i++) {
+      images.push(
+        <img
+          key={`full-${i}`}
+          src={ratingbeer}
+          alt="beer rating"
+          className="w-6 h-6"
+        />
+      );
+    }
+
+    if (hasHalfStar) {
+      images.push(
+        <img
+          key="half"
+          // src={halfbeer}
+          alt="half beer rating"
+          className="w-6 h-6"
+        />
+      );
+    }
+
+    return images;
+  };
+
   return (
     <div className="flex flex-col items-center">
       <img className="mx-auto w-[200px]" src={topratedimg} alt="" />
@@ -102,7 +134,7 @@ const AllBarsPage: React.FC = () => {
           {allBars.map((bar) => (
             <div
               key={bar.id}
-              className="flex items-center bg-gray-300 opacity-70 p-4 rounded-md shadow-md mb-4 relative cursor-pointer"
+              className="flex items-center bg-gray-300 opacity-80 p-4 rounded-md shadow-md mb-4 relative cursor-pointer"
               onClick={() => handleCardClick(bar)}
             >
               {bar.photoUrl ? (
@@ -117,8 +149,11 @@ const AllBarsPage: React.FC = () => {
               <div>
                 <p className="text-lg font-medium">{bar.name}</p>
                 <p className="text-sm text-gray-700">
-                  Average Rating: {`${bar.rating} Stars`} ({bar.ratingCount}{" "}
-                  votes)
+                  Average Rating:
+                  <span className="flex">
+                    {renderRatingImages(bar.rating)}
+                  </span>{" "}
+                  ({bar.ratingCount} votes)
                 </p>
               </div>
             </div>
