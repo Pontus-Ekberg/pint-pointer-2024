@@ -252,7 +252,7 @@ const Compass: React.FC = () => {
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
       libraries={libraries}
     >
-      <div className="mt-[90px] w-screen flex flex-col justify-center items-center">
+      <div className="mt-[25px] w-screen flex flex-col justify-center items-center">
         <div onClick={toggleBarName}>
           <img
             src={showBarName ? unseeImg : seeImg}

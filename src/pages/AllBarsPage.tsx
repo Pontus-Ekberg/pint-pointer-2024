@@ -93,11 +93,7 @@ const AllBarsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <img
-        className="mr-24 -rotate-[12deg] w-[220px]"
-        src={topratedimg}
-        alt=""
-      />
+      <img className="mx-auto w-[200px]" src={topratedimg} alt="" />
 
       {loading ? (
         <p className="mt-4 text-gray-500">Loading...</p>

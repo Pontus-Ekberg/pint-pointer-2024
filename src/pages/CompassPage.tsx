@@ -18,11 +18,7 @@ const CompassPage = () => {
   if (hasReloaded) {
     return (
       <div className="relative overflow-hidden h-screen">
-        <img
-          className="absolute -rotate-[12deg] w-[220px]"
-          src={plank}
-          alt=""
-        />
+        <img className="mx-auto w-[200px]" src={plank} alt="" />
         <Compass />
       </div>
     );

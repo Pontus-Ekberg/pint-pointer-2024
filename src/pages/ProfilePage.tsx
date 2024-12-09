@@ -129,13 +129,9 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <img
-        className="absolute right-24 -rotate-[12deg] w-[220px]"
-        src={plankimg}
-        alt=""
-      />
+      <img className="mx-auto w-[200px]" src={plankimg} alt="" />
 
-      <div className="mt-36">
+      <div className="mt-14">
         <img
           className="h-32 w-32 rounded-full border-2 border-black"
           src={profilePicture || "https://via.placeholder.com/150"}
