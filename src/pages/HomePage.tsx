@@ -4,6 +4,8 @@ import beerguy from "../assets/img/Beerguyblue.png";
 import clock from "../assets/img/fixedclock.png";
 import plank from "../assets/img/Plank.png";
 import cowkorv from "../assets/img/Cowkorv.png";
+import skumol from "../assets/img/skumol.png";
+import ol from "../assets/img/ol.png";
 
 const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -24,7 +26,12 @@ const HomePage = () => {
         alt=""
       />
       <div className="flex flex-col justify-center mt-12 lg:mt-28">
-        <button className="bg-gray-300 border-2 border-black z-20 mx-auto sm:h-12 sm:w-36 md:h-20 md:w-44 lg:h-24 lg:w-64">
+        <button
+          className="bg-cover bg-center rounded-lg border-2 border-black z-20 mx-auto sm:h-12 sm:w-36 md:h-20 md:w-44 lg:h-24 lg:w-64"
+          style={{
+            backgroundImage: `url(${skumol})`,
+          }}
+        >
           <a href="/compass" className="md:text-3xl lg:text-4xl">
             Point!
           </a>
@@ -32,13 +39,23 @@ const HomePage = () => {
 
         {!isLoggedIn && (
           <>
-            <button className="bg-gray-300 border-2 border-black z-20 h-10 w-28 mx-auto mt-5 md:h-14 md:w-32 lg:h-20 lg:w-56">
+            <button
+              className="bg-cover bg-fill rounded-lg border-2 border-black z-20 h-10 w-28 mx-auto mt-5 md:h-14 md:w-32 lg:h-20 lg:w-56"
+              style={{
+                backgroundImage: `url(${ol})`,
+              }}
+            >
               <a href="/login" className="md:text-2xl lg:text-3xl">
                 Login
               </a>
             </button>
 
-            <button className="bg-gray-300 border-2 border-black z-20 h-10 w-28 sm:mt-72 mx-auto md:h-14 md:w-32 md:mt-[550px] lg:h-20 lg:w-56">
+            <button
+              className="bg-cover bg-top rounded-lg border-2 border-black z-20 h-10 w-28 sm:mt-72 mx-auto md:h-14 md:w-32 md:mt-[550px] lg:h-20 lg:w-56"
+              style={{
+                backgroundImage: `url(${ol})`,
+              }}
+            >
               <a href="/signup" className="md:text-2xl lg:text-3xl">
                 Sign up
               </a>
