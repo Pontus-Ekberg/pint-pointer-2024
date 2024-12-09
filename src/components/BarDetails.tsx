@@ -1,5 +1,7 @@
 import React from "react";
 import { Bar } from "../pages/AllBarsPage";
+import ratingbeer from "../assets/img/beer-1669275_960_720.webp";
+import halfbeer from "../assets/img/halfbier.png";
 
 interface BarDetailsProps {
   bar: Bar;
@@ -7,6 +9,36 @@ interface BarDetailsProps {
 }
 
 const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
+  const renderRatingImages = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const images = [];
+
+    for (let i = 0; i < fullStars; i++) {
+      images.push(
+        <img
+          key={`full-${i}`}
+          src={ratingbeer}
+          alt="beer rating"
+          className="w-6 h-6 inline-block"
+        />
+      );
+    }
+
+    if (hasHalfStar) {
+      images.push(
+        <img
+          key="half"
+          src={halfbeer}
+          alt="half beer rating"
+          className="w-6 h-6 inline-block"
+        />
+      );
+    }
+
+    return images;
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-gray-200 opacity-90 p-6 max-w-md mx-auto">
@@ -20,7 +52,10 @@ const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
         ) : (
           <div className="w-full h-48 bg-gray-400 mt-4"></div>
         )}
-        <p className="mt-4">Rating: {bar.rating} Stars</p>
+        <p className="mt-4 flex items-center">
+          Rating:
+          <span className="ml-2 flex">{renderRatingImages(bar.rating)}</span>
+        </p>
         <p>Votes: {bar.ratingCount}</p>
 
         {bar.address && (

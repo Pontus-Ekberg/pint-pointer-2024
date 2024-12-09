@@ -184,7 +184,7 @@ const ProfilePage: React.FC = () => {
               <div>
                 <p className="text-lg font-medium">{bar.name}</p>
                 <p className="text-sm text-gray-700">
-                  Average Rating: {`${bar.rating} Stars`}
+                  Average Rating: {`${bar.rating} of 5 Beers`}
                 </p>
                 <select
                   value={bar.rating}
@@ -196,7 +196,7 @@ const ProfilePage: React.FC = () => {
                 >
                   {[0, 1, 2, 3, 4, 5].map((rating) => (
                     <option key={rating} value={rating}>
-                      {rating} Star{rating > 1 ? "s" : ""}
+                      {rating} Beer{rating > 1 ? "s" : ""}
                     </option>
                   ))}
                 </select>
