@@ -11,20 +11,24 @@ import {
 } from "firebase/firestore";
 import EditCard from "../components/EditCard";
 import plankimg from "../assets/img/Plankprofile.png";
+import BarDetails from "../components/BarDetails";
+
+export type Bar = {
+  id: string;
+  name: string;
+  photoUrl: string | null;
+  rating: number;
+  ratingCount: number;
+  address: string | null;
+};
 
 const ProfilePage: React.FC = () => {
   const [showEditCard, setShowEditCard] = useState<boolean>(false);
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [profilePicture, setProfilePicture] = useState<string | null>(null);
-  const [savedBars, setSavedBars] = useState<
-    {
-      id: string;
-      name: string;
-      photoUrl: string | null;
-      rating: number | null;
-    }[]
-  >([]);
+  const [savedBars, setSavedBars] = useState<Bar[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectedBar, setSelectedBar] = useState<Bar | null>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -40,19 +44,17 @@ const ProfilePage: React.FC = () => {
             const barsRef = collection(db, "users", user.uid, "savedBars");
             const barsQuery = query(barsRef, orderBy("timestamp", "desc"));
             const barsSnapshot = await getDocs(barsQuery);
+
             const bars = barsSnapshot.docs.map((doc) => ({
               id: doc.id,
-              ...doc.data(),
+              name: doc.data().name || "Unknown Bar",
+              photoUrl: doc.data().photoUrl || null,
+              rating: doc.data().rating || 0,
+              ratingCount: doc.data().ratingCount || 0,
+              address: doc.data().address || "No address available",
             }));
 
-            setSavedBars(
-              bars as {
-                id: string;
-                name: string;
-                photoUrl: string | null;
-                rating: number | null;
-              }[]
-            );
+            setSavedBars(bars as Bar[]);
           } catch (error) {
             console.error("Error fetching saved bars from Firebase:", error);
           }
@@ -79,6 +81,14 @@ const ProfilePage: React.FC = () => {
     }
   };
 
+  const handleCardClick = (bar: Bar) => {
+    setSelectedBar(bar);
+  };
+
+  const closeModal = () => {
+    setSelectedBar(null);
+  };
+
   const handleDeleteBar = async (barId: string) => {
     const user = auth.currentUser;
     if (!user) return;
@@ -87,10 +97,7 @@ const ProfilePage: React.FC = () => {
       const barDocRef = doc(db, "users", user.uid, "savedBars", barId);
       await deleteDoc(barDocRef);
 
-      setSavedBars((prevBars) => {
-        const updatedBars = prevBars.filter((bar) => bar.id !== barId);
-        return updatedBars;
-      });
+      setSavedBars((prevBars) => prevBars.filter((bar) => bar.id !== barId));
     } catch (error) {
       console.error("Failed to delete bar:", error);
     }
@@ -156,11 +163,12 @@ const ProfilePage: React.FC = () => {
           savedBars.map((bar) => (
             <div
               key={bar.id}
-              className="flex items-center bg-gray-300 opacity-80 p-4 rounded-md shadow-md mb-4 relative"
+              className="flex items-center bg-gray-300 opacity-90 p-4 rounded-md shadow-md mb-4 relative cursor-pointer"
+              onClick={() => handleCardClick(bar)}
             >
               {bar.photoUrl ? (
                 <img
-                  src={bar.photoUrl || "https://via.placeholder.com/150"}
+                  src={bar.photoUrl}
                   alt={bar.name}
                   className="w-16 h-16 object-cover rounded-md mr-4"
                 />
@@ -169,15 +177,18 @@ const ProfilePage: React.FC = () => {
               )}
               <div>
                 <p className="text-lg font-medium">{bar.name}</p>
+                <p className="text-sm text-gray-700">
+                  Average Rating: {`${bar.rating} Stars`}
+                </p>
                 <select
-                  value={bar.rating || 0}
+                  value={bar.rating}
+                  onClick={(e) => e.stopPropagation()}
                   onChange={(e) =>
                     handleRatingChange(bar.id, Number(e.target.value))
                   }
                   className="mt-2 bg-white border rounded-md px-2 py-1"
                 >
-                  <option value={0}>No Rating</option>
-                  {[1, 2, 3, 4, 5].map((rating) => (
+                  {[0, 1, 2, 3, 4, 5].map((rating) => (
                     <option key={rating} value={rating}>
                       {rating} Star{rating > 1 ? "s" : ""}
                     </option>
@@ -185,8 +196,11 @@ const ProfilePage: React.FC = () => {
                 </select>
               </div>
               <button
-                onClick={() => handleDeleteBar(bar.id)}
-                className="absolute top-2 right-2 px-2 py-1 rounded-full text-sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteBar(bar.id);
+                }}
+                className="absolute top-2 right-2 px-2 py-1 text-sm"
               >
                 X
               </button>
@@ -203,6 +217,7 @@ const ProfilePage: React.FC = () => {
           onSaveSuccess={handleSaveSuccess}
         />
       )}
+      {selectedBar && <BarDetails bar={selectedBar} onClose={closeModal} />}
     </div>
   );
 };
