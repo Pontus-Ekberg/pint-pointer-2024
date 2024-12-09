@@ -169,7 +169,7 @@ const ProfilePage: React.FC = () => {
           savedBars.map((bar) => (
             <div
               key={bar.id}
-              className="flex items-center bg-gray-300 opacity-90 p-4 rounded-md shadow-md mb-4 relative cursor-pointer"
+              className="flex items-center bg-gray-300 opacity-70 p-4 rounded-md shadow-md mb-4 relative cursor-pointer"
               onClick={() => handleCardClick(bar)}
             >
               {bar.photoUrl ? (

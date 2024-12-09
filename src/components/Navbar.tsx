@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
               onClick={handleLogout}
               className="px-4 py-2 sm:inline-block text-red-500 text-left"
             >
-              Logout
+              Log out
             </button>
           )}
         </div>
