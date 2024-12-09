@@ -4,7 +4,7 @@ import { collectionGroup, getDocs, DocumentData } from "firebase/firestore";
 import topratedimg from "../assets/img/Toprated.png";
 import BarDetails from "../components/BarDetails";
 import ratingbeer from "../assets/img/beer-1669275_960_720.webp";
-//import halfbeer from "../assets/img/halfbier.png";
+import halfbeer from "../assets/img/halfbier.png";
 
 export type Bar = {
   id: string;
@@ -113,7 +113,7 @@ const AllBarsPage: React.FC = () => {
       images.push(
         <img
           key="half"
-          // src={halfbeer}
+          src={halfbeer}
           alt="half beer rating"
           className="w-6 h-6"
         />
