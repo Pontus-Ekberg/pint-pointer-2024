@@ -12,6 +12,8 @@ import {
 import EditCard from "../components/EditCard";
 import plankimg from "../assets/img/Plankprofile.png";
 import BarDetails from "../components/BarDetails";
+import skumol from "../assets/img/skumol.png";
+import ol from "../assets/img/ol.png";
 
 export type Bar = {
   id: string;
@@ -146,12 +148,20 @@ const ProfilePage: React.FC = () => {
       </div>
 
       <div className="flex flex-col mt-8 space-y-4">
-        <button className="px-6 py-2 bg-gray-300 border-2 border-black">
+        <button
+          className="px-6 py-2 bg-cover bg-center rounded-lg border-2 border-black"
+          style={{
+            backgroundImage: `url(${skumol})`,
+          }}
+        >
           <a href="/compass">PintPoint!</a>
         </button>
         <button
           onClick={() => setShowEditCard(true)}
-          className="px-6 py-2 bg-gray-300 border-2 border-black"
+          className="px-6 py-2 bg-cover bg-center rounded-lg border-2 border-black"
+          style={{
+            backgroundImage: `url(${ol})`,
+          }}
         >
           Edit Profile
         </button>
