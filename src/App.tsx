@@ -7,19 +7,22 @@ import ProfilePage from "./pages/ProfilePage";
 import ProfileAvatar from "./components/ProfileIcon";
 import Navbar from "./components/Navbar";
 import AllBarsPage from "./pages/AllBarsPage";
+import Layout from "./components/Layout";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/compass" element={<CompassPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/all-bars" element={<AllBarsPage />} />
-      </Routes>
+      <Layout>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/compass" element={<CompassPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/all-bars" element={<AllBarsPage />} />
+        </Routes>
+      </Layout>
     </>
   );
 }
