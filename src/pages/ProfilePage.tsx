@@ -6,6 +6,8 @@ import {
   doc,
   deleteDoc,
   updateDoc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import EditCard from "../components/EditCard";
 import plankimg from "../assets/img/Plankprofile.png";
@@ -36,7 +38,8 @@ const ProfilePage: React.FC = () => {
         const fetchSavedBars = async () => {
           try {
             const barsRef = collection(db, "users", user.uid, "savedBars");
-            const barsSnapshot = await getDocs(barsRef);
+            const barsQuery = query(barsRef, orderBy("timestamp", "desc"));
+            const barsSnapshot = await getDocs(barsQuery);
             const bars = barsSnapshot.docs.map((doc) => ({
               id: doc.id,
               ...doc.data(),
