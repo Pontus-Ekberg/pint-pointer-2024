@@ -30,14 +30,18 @@ const Navbar: React.FC = () => {
   return (
     <nav className="fixed z-50 top-4 right-2">
       <div className="flex justify-between items-center">
-        <button onClick={toggleMenu} className="focus:outline-none sm:hidden">
-          <img src={hamburger} alt="Menu" className="w-10 h-10" />
+        <button onClick={toggleMenu} className="focus:outline-none">
+          <img
+            src={hamburger}
+            alt="Menu"
+            className="w-10 h-10 md:w-20 md:h-20"
+          />
         </button>
 
         <div
           className={`${
             isOpen ? "block" : "hidden"
-          } absolute flex flex-col top-10 -left-12 bg-gray-300 opacity-80 rounded-md sm:relative sm:flex sm:top-auto sm:left-auto sm:w-auto sm:bg-transparent`}
+          } absolute flex flex-col top-10 -left-12 bg-gray-300 opacity-80 rounded-md`}
         >
           <a href="/" className="px-4 py-2 sm:inline-block" onClick={closeMenu}>
             Home
