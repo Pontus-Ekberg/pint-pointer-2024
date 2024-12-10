@@ -61,10 +61,10 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="relative overflow-hidden h-screen flex flex-col items-center">
-      <img className="mx-auto w-[200px]" src={loginimg} alt="" />
+      <img className="mx-auto w-[200px] lg:w-[350px]" src={loginimg} alt="" />
       <form
         onSubmit={handleLogin}
-        className="flex flex-col items-center w-80 p-6 pb-0"
+        className="flex flex-col items-center md:mt-36 w-80 p-6 pb-0"
       >
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
         {resetMessage && (
@@ -76,7 +76,7 @@ const LoginPage: React.FC = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black lg:w-80 lg:h-14"
           required
         />
         <input
@@ -84,12 +84,12 @@ const LoginPage: React.FC = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black lg:w-80 lg:h-14"
           required
         />
         <button
           type="submit"
-          className="w-36 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg z-20 py-2 border-2 border-black hover:bg-blue-600 transition"
+          className="w-36 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg z-20 py-2 border-2 border-black lg:w-48 lg:h-14"
           style={{
             backgroundImage: `url(${skumol})`,
           }}
@@ -134,7 +134,7 @@ const LoginPage: React.FC = () => {
       )}
 
       <button
-        className="mt-48 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black w-32 h-10"
+        className="mt-48 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black w-32 h-10 md:mt-96 lg:mt-[700px] lg:w-48 lg:h-14"
         style={{
           backgroundImage: `url(${ol})`,
         }}
@@ -142,12 +142,12 @@ const LoginPage: React.FC = () => {
         <a href="signup">SignUp</a>
       </button>
       <img
-        className="absolute z-10 top-[320px] left-[95px] -rotate-[8deg] w-72"
+        className="absolute z-10 w-[80%] md:w-[50%] lg:w-[60%] -bottom-[20px] -right-[50px] -rotate-[8deg] w-72"
         src={confetti}
         alt=""
       />
       <img
-        className="absolute z-10 top-[150px] right-[130px] rotate-[15deg]"
+        className="absolute z-10 w-[80%] md:w-[50%] lg:w-[60%] top-[150px] -left-[70px] rotate-[15deg]"
         src={claus}
         alt=""
       />
