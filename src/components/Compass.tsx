@@ -252,7 +252,7 @@ const Compass: React.FC = () => {
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
       libraries={libraries}
     >
-      <div className="mt-[25px] w-screen flex flex-col justify-center items-center">
+      <div className="mt-[25px] w-screen flex flex-col justify-center items-center md:mt-10">
         <div onClick={toggleBarName}>
           <img
             src={showBarName ? unseeImg : seeImg}
@@ -271,14 +271,14 @@ const Compass: React.FC = () => {
           </p>
         )}
 
-        <div className="relative w-[280px] h-[320px] rounded-full mx-auto">
+        <div className="relative w-[280px] h-[320px] rounded-full mx-auto  md:mt-10 md:w-[350px] md:h-[500px]">
           <div
             ref={compassCircleRef}
             className="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-contain"
             style={{ backgroundImage: `url(${keg})` }}
           ></div>
           <div
-            className="absolute w-[60%] h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-contain z-10"
+            className="absolute w-[60%] h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-contain z-10 md:w-[90%] md:h-[50%]"
             style={{ backgroundImage: `url(${pripp})` }}
           ></div>
         </div>
@@ -295,7 +295,7 @@ const Compass: React.FC = () => {
 
         <div className="flex items-center space-x-4 mt-4">
           <select
-            className="bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 border-2 border-black shadow-sm"
+            className="bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 border-2 border-black shadow-sm md:w-24 md:h-14"
             style={{
               backgroundImage: `url(${ol})`,
             }}
@@ -310,7 +310,7 @@ const Compass: React.FC = () => {
           </select>
 
           <button
-            className="bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black px-4 py-2"
+            className="bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black px-4 py-2 md:w-48 md:h-14"
             style={{
               backgroundImage: `url(${ol})`,
             }}
@@ -322,7 +322,7 @@ const Compass: React.FC = () => {
 
         {!hasPermission && (
           <button
-            className="absolute z-40 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black px-4 py-2 mx-10
+            className="absolute z-40 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black px-4 py-2 mx-10 md:w-64 md:h-20
             "
             style={{
               backgroundImage: `url(${skumol})`,
