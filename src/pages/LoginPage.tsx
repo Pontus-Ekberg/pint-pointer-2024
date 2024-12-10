@@ -89,7 +89,7 @@ const LoginPage: React.FC = () => {
         />
         <button
           type="submit"
-          className="w-36 bg-cover bg-center rounded-lg z-20 py-2 border-2 border-black hover:bg-blue-600 transition"
+          className="w-36 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg z-20 py-2 border-2 border-black hover:bg-blue-600 transition"
           style={{
             backgroundImage: `url(${skumol})`,
           }}
@@ -134,7 +134,7 @@ const LoginPage: React.FC = () => {
       )}
 
       <button
-        className="mt-48 z-20 bg-cover bg-center rounded-lg border-2 border-black w-32 h-10"
+        className="mt-48 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black w-32 h-10"
         style={{
           backgroundImage: `url(${ol})`,
         }}

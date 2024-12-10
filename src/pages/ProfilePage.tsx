@@ -145,7 +145,7 @@ const ProfilePage: React.FC = () => {
 
       <div className="flex flex-col mt-8 space-y-4">
         <button
-          className="px-6 py-2 bg-cover bg-center rounded-lg border-2 border-black"
+          className="px-6 py-2 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black"
           style={{
             backgroundImage: `url(${skumol})`,
           }}
@@ -154,7 +154,7 @@ const ProfilePage: React.FC = () => {
         </button>
         <button
           onClick={() => setShowEditCard(true)}
-          className="px-6 py-2 bg-cover bg-center rounded-lg border-2 border-black"
+          className="px-6 py-2 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black"
           style={{
             backgroundImage: `url(${ol})`,
           }}

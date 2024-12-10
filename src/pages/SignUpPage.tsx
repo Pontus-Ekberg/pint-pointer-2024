@@ -80,7 +80,7 @@ const SignUpPage: React.FC = () => {
         />
         <button
           type="submit"
-          className="w-36 z-20 bg-cover bg-center rounded-lg py-2 border-2 border-black transition"
+          className="w-36 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg py-2 border-2 border-black transition"
           style={{
             backgroundImage: `url(${skumol})`,
           }}
