@@ -47,10 +47,10 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="relative overflow-hidden h-screen flex flex-col items-center">
-      <img className="mx-auto w-[200px]" src={signupimg} alt="" />
+      <img className="mx-auto w-[200px] md:w-[350px]" src={signupimg} alt="" />
       <form
         onSubmit={handleSignUp}
-        className="flex flex-col relative items-center w-80 p-6"
+        className="flex flex-col relative items-center w-80 p-6 md:mt-36"
       >
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
         {success && <p className="text-green-600 text-sm mb-4">{success}</p>}
@@ -59,7 +59,7 @@ const SignUpPage: React.FC = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black lg:w-80 lg:h-14"
           required
         />
         <input
@@ -67,7 +67,7 @@ const SignUpPage: React.FC = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black lg:w-80 lg:h-14"
           required
         />
         <input
@@ -75,29 +75,29 @@ const SignUpPage: React.FC = () => {
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="w-full z-20 opacity-85 p-2 mb-4 border border-black"
+          className="w-full z-20 opacity-85 p-2 mb-4 border border-black lg:w-80 lg:h-14"
           required
         />
         <button
           type="submit"
-          className="w-36 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg py-2 border-2 border-black transition"
+          className="w-36 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg py-2 border-2 border-black lg:w-48 lg:h-14"
           style={{
             backgroundImage: `url(${skumol})`,
           }}
         >
           Sign Up
         </button>
-        <img
-          className="absolute top-[250px] left-[85px]"
-          src={beerpink}
-          alt=""
-        />
-        <img
-          className="absolute top-[10px] z-10 right-[100px] rotate-[25deg]"
-          src={faceimg}
-          alt=""
-        />
       </form>
+      <img
+        className="absolute -bottom-[50px] -right-[85px] md:w-[500px] lg:w-[600px]"
+        src={beerpink}
+        alt=""
+      />
+      <img
+        className="absolute top-[100px] z-10 -left-[130px] rotate-[25deg] md:w-[500px] lg:w-[600px]"
+        src={faceimg}
+        alt=""
+      />
     </div>
   );
 };

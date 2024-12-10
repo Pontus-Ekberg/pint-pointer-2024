@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="relative overflow-hidden h-screen flex flex-col items-center">
-      <img className="mx-auto w-[200px] lg:w-[350px]" src={loginimg} alt="" />
+      <img className="mx-auto w-[200px] md:w-[350px]" src={loginimg} alt="" />
       <form
         onSubmit={handleLogin}
         className="flex flex-col items-center md:mt-36 w-80 p-6 pb-0"

@@ -20,11 +20,7 @@ const HomePage = () => {
 
   return (
     <div className="overflow-hidden h-screen w-screen relative">
-      <img
-        className="mx-auto sm:w-[200px] md:w-[350px] lg:w-[350px]"
-        src={plank}
-        alt=""
-      />
+      <img className="mx-auto sm:w-[200px] md:w-[350px]" src={plank} alt="" />
       <div className="flex flex-col justify-center mt-12 lg:mt-28">
         <button
           className="bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black z-20 mx-auto sm:h-12 sm:w-36 md:h-20 md:w-44 lg:h-24 lg:w-64"
