@@ -27,7 +27,7 @@ const HomePage = () => {
       />
       <div className="flex flex-col justify-center mt-12 lg:mt-28">
         <button
-          className="bg-cover bg-center rounded-lg border-2 border-black z-20 mx-auto sm:h-12 sm:w-36 md:h-20 md:w-44 lg:h-24 lg:w-64"
+          className="bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black z-20 mx-auto sm:h-12 sm:w-36 md:h-20 md:w-44 lg:h-24 lg:w-64"
           style={{
             backgroundImage: `url(${skumol})`,
           }}
@@ -40,7 +40,7 @@ const HomePage = () => {
         {!isLoggedIn && (
           <>
             <button
-              className="bg-cover bg-fill rounded-lg border-2 border-black z-20 h-10 w-28 mx-auto mt-5 md:h-14 md:w-32 lg:h-20 lg:w-56"
+              className="bg-cover bg-fill drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black z-20 h-10 w-28 mx-auto mt-5 md:h-14 md:w-32 lg:h-20 lg:w-56"
               style={{
                 backgroundImage: `url(${ol})`,
               }}
@@ -51,7 +51,7 @@ const HomePage = () => {
             </button>
 
             <button
-              className="bg-cover bg-top rounded-lg border-2 border-black z-20 h-10 w-28 sm:mt-72 mx-auto md:h-14 md:w-32 md:mt-[550px] lg:h-20 lg:w-56"
+              className="bg-cover bg-top drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black z-20 h-10 w-28 sm:mt-72 mx-auto md:h-14 md:w-32 md:mt-[550px] lg:h-20 lg:w-56"
               style={{
                 backgroundImage: `url(${ol})`,
               }}
