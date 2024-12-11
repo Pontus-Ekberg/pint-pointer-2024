@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../service/Firebase";
+import { useNavigate } from "react-router-dom";
 import beerpink from "../assets/img/Beerpink.png";
 import signupimg from "../assets/img/Planksignup.png";
 import faceimg from "../assets/img/Faceyellow.png";
@@ -12,6 +13,8 @@ const SignUpPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,6 +39,7 @@ const SignUpPage: React.FC = () => {
       }
 
       setSuccess("Account created successfully! You can now log in.");
+      navigate("/profile");
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
