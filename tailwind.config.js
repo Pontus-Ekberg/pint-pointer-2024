@@ -12,7 +12,11 @@ export default {
       lg: "1024px",
       // => @media (min-width: 1024px) { ... }
     },
-    extend: {},
+    extend: {
+      zIndex: {
+        60: "60",
+      },
+    },
   },
   plugins: [],
 };
