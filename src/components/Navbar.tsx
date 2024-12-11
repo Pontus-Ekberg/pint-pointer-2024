@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../service/Firebase";
 import { useAuth } from "../contexts/AuthContext";
+import { onAuthStateChanged } from "firebase/auth";
 import hamburger from "../assets/img/Burger.png";
 
 const Navbar: React.FC = () => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [profilePicture, setProfilePicture] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setProfilePicture(user.photoURL || "https://via.placeholder.com/50");
+      } else {
+        setProfilePicture(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -31,11 +45,19 @@ const Navbar: React.FC = () => {
     <nav className="fixed z-50 top-4 right-2">
       <div className="flex justify-between items-center">
         <button onClick={toggleMenu} className="focus:outline-none">
-          <img
-            src={hamburger}
-            alt="Menu"
-            className="w-10 h-10 md:w-20 md:h-20"
-          />
+          {user && profilePicture ? (
+            <img
+              src={profilePicture}
+              alt="Profile"
+              className="w-10 h-10 md:w-20 md:h-20 rounded-full border-2 border-black"
+            />
+          ) : (
+            <img
+              src={hamburger}
+              alt="Menu"
+              className="w-10 h-10 md:w-20 md:h-20"
+            />
+          )}
         </button>
 
         <div
