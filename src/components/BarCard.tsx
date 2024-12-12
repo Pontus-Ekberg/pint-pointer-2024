@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../service/Firebase";
+import ol from "../assets/img/ol.png";
 
 const BarCard = ({
   name,
@@ -43,13 +44,16 @@ const BarCard = ({
 
       <div className="flex justify-center space-x-2 mt-6">
         <button
-          className="bg-gray-300 border-2 border-black px-2 py-1"
+          className="border-2 border-black px-2 py-1 rounded-lg"
           onClick={handleGrabADrinkClick}
+          style={{
+            backgroundImage: `url(${ol})`,
+          }}
         >
           Grab a drink!
         </button>
         <button
-          className="bg-red-300 border-2 border-black px-4 py-1"
+          className="bg-red-300 border-2 border-black px-4 py-1 rounded-lg"
           onClick={onClose}
         >
           Close
