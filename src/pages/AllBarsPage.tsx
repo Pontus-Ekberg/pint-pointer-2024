@@ -124,7 +124,7 @@ const AllBarsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center md:w-[90%] mx-auto">
+    <div className="flex flex-col items-center md:w-[90%] mx-auto font-barrio">
       <img className="mx-auto w-[200px]" src={topratedimg} alt="" />
 
       {loading ? (

@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="fixed z-60 top-4 right-2">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center font-barrio">
         <button onClick={toggleMenu} className="focus:outline-none">
           {user && profilePicture ? (
             <img

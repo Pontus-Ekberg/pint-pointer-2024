@@ -2,6 +2,7 @@ import React from "react";
 import { Bar } from "../pages/AllBarsPage";
 import ratingbeer from "../assets/img/beer-1669275_960_720.webp";
 import halfbeer from "../assets/img/halfbier.png";
+import ol from "../assets/img/ol.png";
 
 interface BarDetailsProps {
   bar: Bar;
@@ -40,7 +41,7 @@ const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-barrio">
       <div className="bg-gray-200 opacity-90 p-6 max-w-md mx-auto">
         <h2 className="text-2xl font-semibold">{bar.name}</h2>
         {bar.photoUrl ? (
@@ -64,7 +65,10 @@ const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
 
         <button
           onClick={onClose}
-          className="mt-4 bg-gray-300 px-4 py-2 border-2 border-black rounded"
+          className="mt-4 px-4 py-2 border-2 border-black rounded-lg"
+          style={{
+            backgroundImage: `url(${ol})`,
+          }}
         >
           Close
         </button>
