@@ -4,7 +4,6 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CompassPage from "./pages/CompassPage";
 import ProfilePage from "./pages/ProfilePage";
-import ProfileAvatar from "./components/ProfileIcon";
 import Navbar from "./components/Navbar";
 import AllBarsPage from "./pages/AllBarsPage";
 import Layout from "./components/Layout";
