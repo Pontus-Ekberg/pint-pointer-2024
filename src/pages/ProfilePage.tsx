@@ -128,7 +128,7 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center font-barrio">
       <img className="mx-auto w-[200px]" src={plankimg} alt="" />
 
       <div className="mt-14">
@@ -138,7 +138,7 @@ const ProfilePage: React.FC = () => {
           alt="Profile"
         />
 
-        <p className="mt-4 text-lg text-white font-medium text-center">
+        <p className="mt-4 text-xl text-white font-medium text-center">
           {displayName || "No Name Set"}
         </p>
       </div>
@@ -150,11 +150,13 @@ const ProfilePage: React.FC = () => {
             backgroundImage: `url(${skumol})`,
           }}
         >
-          <a href="/compass">PintPoint!</a>
+          <a className="text-xl" href="/compass">
+            PintPoint!
+          </a>
         </button>
         <button
           onClick={() => setShowEditCard(true)}
-          className="px-6 py-2 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black"
+          className="px-6 py-2 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black text-xl"
           style={{
             backgroundImage: `url(${ol})`,
           }}
