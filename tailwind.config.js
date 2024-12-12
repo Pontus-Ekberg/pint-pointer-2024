@@ -16,6 +16,10 @@ export default {
       zIndex: {
         60: "60",
       },
+      fontFamily: {
+        barrio: ["Barrio", "sans-serif"],
+        rock: ["'Rock 3D'", "sans-serif"],
+      },
     },
   },
   plugins: [],

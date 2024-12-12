@@ -63,9 +63,13 @@ const Navbar: React.FC = () => {
         <div
           className={`${
             isOpen ? "block" : "hidden"
-          } absolute flex flex-col top-10 -left-12 bg-gray-300 opacity-80 rounded-md`}
+          } absolute flex flex-col top-12 -left-24 bg-gray-300 rounded-md`}
         >
-          <a href="/" className="px-4 py-2 sm:inline-block" onClick={closeMenu}>
+          <a
+            href="/"
+            className="w-36 px-4 py-2 sm:inline-block"
+            onClick={closeMenu}
+          >
             Home
           </a>
           {user && (

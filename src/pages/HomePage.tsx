@@ -66,7 +66,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="overflow-hidden h-screen w-screen relative">
+    <div className="overflow-hidden h-screen w-screen relative font-barrio text-xl">
       <img className="mx-auto sm:w-[200px] md:w-[350px]" src={plank} alt="" />
       <div className="flex flex-col justify-center mt-12 lg:mt-28">
         <button
