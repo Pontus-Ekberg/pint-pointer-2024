@@ -63,11 +63,8 @@ const Compass: React.FC = () => {
     lat: number;
     lon: number;
   } | null>(null);
-  const [hasPermission, setHasPermission] = useState(() => {
-    // Kolla om tillstånd är cachat i localStorage
-    const permission = localStorage.getItem("deviceOrientationPermission");
-    return permission === "granted";
-  });
+  const [hasPermission, setHasPermission] = useState(false);
+
   const [targetCoords, setTargetCoords] = useState({
     lat: 55.5859798,
     lon: 13.0062541,
@@ -81,6 +78,7 @@ const Compass: React.FC = () => {
   const [showBarCard, setShowBarCard] = useState(false);
   const [showBarName, setShowBarName] = useState(false);
 
+  // Begär tillstånd för att använda Device Orientation API
   const handleOrientationPermission = () => {
     if (
       typeof DeviceOrientationEvent !== "undefined" &&
@@ -91,10 +89,8 @@ const Compass: React.FC = () => {
         .then((response: string) => {
           if (response === "granted") {
             setHasPermission(true);
-            localStorage.setItem("deviceOrientationPermission", "granted");
           } else {
             alert("Permission to use device orientation is required!");
-            localStorage.setItem("deviceOrientationPermission", "denied");
           }
         })
         .catch(() =>
@@ -102,7 +98,6 @@ const Compass: React.FC = () => {
         );
     } else {
       setHasPermission(true);
-      localStorage.setItem("deviceOrientationPermission", "granted");
     }
   };
 
@@ -332,7 +327,7 @@ const Compass: React.FC = () => {
             }}
             onClick={handleOrientationPermission}
           >
-            Ge tillstånd för att använda kompass
+            GIVE PERMISSION TO COMPASS
           </button>
         )}
       </div>
