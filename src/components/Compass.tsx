@@ -63,7 +63,11 @@ const Compass: React.FC = () => {
     lat: number;
     lon: number;
   } | null>(null);
-  const [hasPermission, setHasPermission] = useState(false);
+  const [hasPermission, setHasPermission] = useState(() => {
+    // Kolla om tillstånd är cachat i localStorage
+    const permission = localStorage.getItem("deviceOrientationPermission");
+    return permission === "granted";
+  });
   const [targetCoords, setTargetCoords] = useState({
     lat: 55.5859798,
     lon: 13.0062541,
@@ -77,7 +81,31 @@ const Compass: React.FC = () => {
   const [showBarCard, setShowBarCard] = useState(false);
   const [showBarName, setShowBarName] = useState(false);
 
-  // Uppdaterar användarens position
+  const handleOrientationPermission = () => {
+    if (
+      typeof DeviceOrientationEvent !== "undefined" &&
+      typeof (DeviceOrientationEvent as any).requestPermission === "function"
+    ) {
+      (DeviceOrientationEvent as any)
+        .requestPermission()
+        .then((response: string) => {
+          if (response === "granted") {
+            setHasPermission(true);
+            localStorage.setItem("deviceOrientationPermission", "granted");
+          } else {
+            alert("Permission to use device orientation is required!");
+            localStorage.setItem("deviceOrientationPermission", "denied");
+          }
+        })
+        .catch(() =>
+          alert("Device orientation not supported or permission not granted.")
+        );
+    } else {
+      setHasPermission(true);
+      localStorage.setItem("deviceOrientationPermission", "granted");
+    }
+  };
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
@@ -92,29 +120,6 @@ const Compass: React.FC = () => {
       alert("Geolocation is not supported by your browser.");
     }
   }, []);
-
-  // Begär tillstånd för att använda Device Orientation API
-  const handleOrientationPermission = () => {
-    if (
-      typeof DeviceOrientationEvent !== "undefined" &&
-      typeof (DeviceOrientationEvent as any).requestPermission === "function"
-    ) {
-      (DeviceOrientationEvent as any)
-        .requestPermission()
-        .then((response: string) => {
-          if (response === "granted") {
-            setHasPermission(true);
-          } else {
-            alert("Permission to use device orientation is required!");
-          }
-        })
-        .catch(() =>
-          alert("Device orientation not supported or permission not granted.")
-        );
-    } else {
-      setHasPermission(true);
-    }
-  };
 
   useEffect(() => {
     if (hasPermission && userCoords) {
