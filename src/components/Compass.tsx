@@ -59,7 +59,6 @@ const calculateDistance = (
 };
 
 const Compass: React.FC = () => {
-  const [compassHeading, setCompassHeading] = useState<number | null>(null);
   const [userCoords, setUserCoords] = useState<{
     lat: number;
     lon: number;
@@ -140,7 +139,6 @@ const Compass: React.FC = () => {
           );
 
           const relativeHeading = (azimuth - heading + 360) % 360;
-          setCompassHeading(relativeHeading);
 
           if (compassCircleRef.current) {
             compassCircleRef.current.style.transform = `translate(-50%, -50%) rotate(${relativeHeading}deg)`;

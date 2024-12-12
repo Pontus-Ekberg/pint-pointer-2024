@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Compass from "../components/Compass";
 import plank from "../assets/img/Plank.png";
 
