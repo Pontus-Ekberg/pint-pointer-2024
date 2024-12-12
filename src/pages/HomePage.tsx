@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { auth, db } from "../service/Firebase";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import beerguy from "../assets/img/Beerguyblue.png";

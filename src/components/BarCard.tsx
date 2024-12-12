@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../service/Firebase";
 import ol from "../assets/img/ol.png";
