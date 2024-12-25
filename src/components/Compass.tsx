@@ -73,10 +73,12 @@ const Compass: React.FC = () => {
   const [barPhotoUrl, setBarPhotoUrl] = useState<string | null>(null);
   const [barAddress, setBarAddress] = useState<string | null>(null);
   const compassCircleRef = useRef<HTMLDivElement | null>(null);
-  const [distance, setDistance] = useState<number | null>(null);
+  const [distance, setDistance] = useState<number>(0);
+
   const [radius, setRadius] = useState(3);
   const [showBarCard, setShowBarCard] = useState(false);
   const [showBarName, setShowBarName] = useState(false);
+  const [barFound, setBarFound] = useState(false); // Flagga för att hitta en bar
 
   // Begär tillstånd för att använda Device Orientation API
   const handleOrientationPermission = () => {
@@ -193,13 +195,21 @@ const Compass: React.FC = () => {
         if (bar.geometry && bar.geometry.location) {
           const lat = bar.geometry.location.lat();
           const lon = bar.geometry.location.lng();
+
           setTargetCoords({ lat, lon });
           setBarName(bar.name || "Okänd Bar");
           setBarPhotoUrl(bar.photos ? bar.photos[0]?.getUrl() : null);
+          setBarAddress(bar.vicinity || null);
 
-          // Hämta adressen från baren om den finns
-          const address = bar.vicinity || null;
-          setBarAddress(address);
+          // Beräkna avstånd
+          const newDistance = calculateDistance(
+            userCoords.lat,
+            userCoords.lon,
+            lat,
+            lon
+          );
+          setDistance(newDistance);
+          setBarFound(true); // Nu har vi hittat en bar
         } else {
           alert(
             "Could not retrieve location information for the selected bar."
@@ -265,7 +275,7 @@ const Compass: React.FC = () => {
 
         {distance !== null && (
           <p className="text-md text-white font-bold">
-            {distance.toFixed(2)} meter
+            {barFound ? `${distance.toFixed(2)} meter` : "0 meter"}
           </p>
         )}
 
