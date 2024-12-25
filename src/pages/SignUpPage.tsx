@@ -50,7 +50,7 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <div className="relative overflow-hidden h-screen flex flex-col items-center">
+    <div className="relative overflow-hidden h-screen flex flex-col items-center font-barrio">
       <img className="mx-auto w-[200px] md:w-[350px]" src={signupimg} alt="" />
       <form
         onSubmit={handleSignUp}
@@ -84,7 +84,7 @@ const SignUpPage: React.FC = () => {
         />
         <button
           type="submit"
-          className="w-36 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg py-2 border-2 border-black lg:w-48 lg:h-14"
+          className="w-36 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg py-2 border-2 border-black lg:w-48 lg:h-14 text-xl"
           style={{
             backgroundImage: `url(${skumol})`,
           }}
