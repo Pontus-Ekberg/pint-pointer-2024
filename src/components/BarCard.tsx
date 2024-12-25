@@ -6,12 +6,14 @@ const BarCard = ({
   name,
   photoUrl,
   address,
+  openingHours,
   onClose,
   onSave,
 }: {
   name: string;
   photoUrl: string | null;
   address: string | null;
+  openingHours: string[];
   onClose: () => void;
   onSave: () => void;
 }) => {
@@ -40,6 +42,19 @@ const BarCard = ({
       )}
 
       {address && <p className="text-sm text-gray-600 mt-2">{address}</p>}
+
+      {openingHours.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold">Opening Hours:</h3>
+          <ul className="list-disc pl-5">
+            {openingHours.map((hour, index) => (
+              <li key={index} className="text-sm text-gray-600">
+                {hour}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="flex justify-center space-x-2 mt-6">
         <button

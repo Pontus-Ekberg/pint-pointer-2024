@@ -108,7 +108,7 @@ const HomePage = () => {
 
         {isLoggedIn && recentBars.length > 0 && (
           <div className="flex flex-col items-center mt-8 z-50 md:mt-20">
-            <h2 className="text-white bg-gray-600 rounded-lg px-2 text-2xl font-bold mb-4 opacity-95">
+            <h2 className="text-white bg-yellow-600 rounded-lg px-2 text-2xl font-bold mb-4 opacity-95">
               Recently Visited Bars
             </h2>
 
@@ -138,7 +138,7 @@ const HomePage = () => {
             <div className="flex items-center justify-center md:hidden space-x-4">
               <button
                 onClick={handlePrevious}
-                className="text-white bg-gray-600 p-2 rounded-full opacity-80"
+                className="text-white bg-yellow-600 p-2 rounded-lg opacity-80 text-2xl"
               >
                 ←
               </button>
@@ -161,7 +161,7 @@ const HomePage = () => {
               </div>
               <button
                 onClick={handleNext}
-                className="text-white bg-gray-600 p-2 rounded-full opacity-80"
+                className="text-white bg-yellow-600 p-2 rounded-lg opacity-80 text-2xl"
               >
                 →
               </button>

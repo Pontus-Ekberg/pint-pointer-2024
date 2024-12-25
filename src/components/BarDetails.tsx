@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Bar } from "../pages/AllBarsPage";
 import ratingbeer from "../assets/img/beer-1669275_960_720.webp";
 import halfbeer from "../assets/img/halfbier.png";
@@ -10,6 +10,8 @@ interface BarDetailsProps {
 }
 
 const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
+  const [showOpeningHours, setShowOpeningHours] = useState(false);
+
   const renderRatingImages = (rating: number) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
@@ -61,6 +63,33 @@ const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
 
         {bar.address && (
           <p className="mt-2 text-gray-600">Address: {bar.address}</p>
+        )}
+
+        {bar.openingHours && bar.openingHours.length > 0 && (
+          <div className="mt-4">
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={() => setShowOpeningHours(!showOpeningHours)}
+            >
+              <span className="text-lg font-semibold">
+                {showOpeningHours ? "Hide Opening Hours" : "Show Opening Hours"}
+              </span>
+              <span className="ml-2">{showOpeningHours ? "▲" : "▼"}</span>
+            </div>
+
+            {showOpeningHours && (
+              <div className="mt-2">
+                <h3 className="font-semibold text-gray-700">Opening Hours:</h3>
+                <ul className="list-disc pl-5">
+                  {bar.openingHours.map((hour, index) => (
+                    <li key={index} className="text-gray-600">
+                      {hour}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         )}
 
         <button

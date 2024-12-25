@@ -13,6 +13,7 @@ export type Bar = {
   rating: number;
   ratingCount: number;
   address: string | null;
+  openingHours?: string[];
 };
 
 const AllBarsPage: React.FC = () => {
@@ -32,6 +33,7 @@ const AllBarsPage: React.FC = () => {
             totalRating: number;
             ratingCount: number;
             address: string | null;
+            openingHours?: string[];
           }
         >();
 
@@ -45,6 +47,7 @@ const AllBarsPage: React.FC = () => {
           ) {
             const barName = data.name;
             const address = data.address || null;
+            const openingHours = data.openingHours || undefined;
 
             if (barsMap.has(barName)) {
               const existingBar = barsMap.get(barName)!;
@@ -56,19 +59,24 @@ const AllBarsPage: React.FC = () => {
                 totalRating: data.rating,
                 ratingCount: 1,
                 address,
+                openingHours,
               });
             }
           }
         });
 
         const bars: Bar[] = Array.from(barsMap.entries()).map(
-          ([name, { photoUrl, totalRating, ratingCount, address }]) => ({
+          ([
+            name,
+            { photoUrl, totalRating, ratingCount, address, openingHours },
+          ]) => ({
             id: name,
             name,
             photoUrl,
             rating: parseFloat((totalRating / ratingCount).toFixed(2)),
             ratingCount,
             address,
+            openingHours,
           })
         );
 

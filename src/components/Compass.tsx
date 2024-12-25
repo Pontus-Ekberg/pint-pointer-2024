@@ -74,6 +74,7 @@ const Compass: React.FC = () => {
   const [barAddress, setBarAddress] = useState<string | null>(null);
   const compassCircleRef = useRef<HTMLDivElement | null>(null);
   const [distance, setDistance] = useState<number>(0);
+  const [openingHours, setOpeningHours] = useState<string[]>([]);
 
   const [radius, setRadius] = useState(3);
   const [showBarCard, setShowBarCard] = useState(false);
@@ -184,7 +185,7 @@ const Compass: React.FC = () => {
 
     const request = {
       location: new google.maps.LatLng(userCoords.lat, userCoords.lon),
-      radius: radius * 1000,
+      radius: radius * 10000,
       type: "bar",
     };
 
@@ -192,6 +193,7 @@ const Compass: React.FC = () => {
       if (status === google.maps.places.PlacesServiceStatus.OK && results) {
         const randomIndex = Math.floor(Math.random() * results.length);
         const bar = results[randomIndex];
+
         if (bar.geometry && bar.geometry.location) {
           const lat = bar.geometry.location.lat();
           const lon = bar.geometry.location.lng();
@@ -210,6 +212,24 @@ const Compass: React.FC = () => {
           );
           setDistance(newDistance);
           setBarFound(true); // Nu har vi hittat en bar
+
+          // Hämta öppettider från Google Places
+          if (bar.place_id) {
+            placesService.getDetails(
+              { placeId: bar.place_id },
+              (place, status) => {
+                if (
+                  status === google.maps.places.PlacesServiceStatus.OK &&
+                  place
+                ) {
+                  const openingHours = place.opening_hours
+                    ? place.opening_hours.weekday_text
+                    : [];
+                  setOpeningHours(openingHours || []);
+                }
+              }
+            );
+          }
         } else {
           alert(
             "Could not retrieve location information for the selected bar."
@@ -242,6 +262,7 @@ const Compass: React.FC = () => {
         photoUrl: barPhotoUrl,
         address: barAddress || null,
         timestamp: new Date(),
+        openingHours: openingHours,
       });
       alert(`${barName} har sparats i din profil!`);
     } catch (error) {
@@ -296,6 +317,7 @@ const Compass: React.FC = () => {
             name={barName}
             photoUrl={barPhotoUrl}
             address={barAddress || null}
+            openingHours={openingHours}
             onClose={() => setShowBarCard(false)}
             onSave={saveBarToFirestore}
           />

@@ -22,6 +22,7 @@ export type Bar = {
   rating: number;
   ratingCount: number;
   address: string | null;
+  openingHours?: string[];
 };
 
 const ProfilePage: React.FC = () => {
@@ -54,6 +55,7 @@ const ProfilePage: React.FC = () => {
               rating: doc.data().rating || 0,
               ratingCount: doc.data().ratingCount || 0,
               address: doc.data().address || "No address available",
+              openingHours: doc.data().openingHours || [],
             }));
 
             setSavedBars(bars as Bar[]);
