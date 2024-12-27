@@ -12,7 +12,6 @@ import ol from "../assets/img/ol.png";
 
 const libraries: Libraries = ["places"];
 
-// Funktion för att beräkna azimut
 const calculateAzimuth = (
   lat1: number,
   lon1: number,
@@ -36,7 +35,6 @@ const calculateAzimuth = (
   return azimuthDeg;
 };
 
-// Funktion för att beräkna avstånd
 const calculateDistance = (
   lat1: number,
   lon1: number,
@@ -44,7 +42,7 @@ const calculateDistance = (
   lon2: number
 ): number => {
   const toRad = (deg: number) => (deg * Math.PI) / 180;
-  const R = 6371e3; // Jordens radie i meter
+  const R = 6371e3;
   const φ1 = toRad(lat1);
   const φ2 = toRad(lat2);
   const Δφ = toRad(lat2 - lat1);
@@ -79,9 +77,8 @@ const Compass: React.FC = () => {
   const [radius, setRadius] = useState(3);
   const [showBarCard, setShowBarCard] = useState(false);
   const [showBarName, setShowBarName] = useState(false);
-  const [barFound, setBarFound] = useState(false); // Flagga för att hitta en bar
+  const [barFound, setBarFound] = useState(false);
 
-  // Begär tillstånd för att använda Device Orientation API
   const handleOrientationPermission = () => {
     if (
       typeof DeviceOrientationEvent !== "undefined" &&
@@ -167,11 +164,10 @@ const Compass: React.FC = () => {
       );
       setDistance(distanceToTarget);
 
-      // Visa BarCard när användaren är inom 20 meter från baren
       if (distanceToTarget < 20) {
-        setShowBarCard(false);
-      } else {
         setShowBarCard(true);
+      } else {
+        setShowBarCard(false);
       }
     }
   }, [userCoords, targetCoords]);
@@ -185,7 +181,7 @@ const Compass: React.FC = () => {
 
     const request = {
       location: new google.maps.LatLng(userCoords.lat, userCoords.lon),
-      radius: radius * 10000,
+      radius: radius * 1000,
       type: "bar",
     };
 
@@ -211,9 +207,8 @@ const Compass: React.FC = () => {
             lon
           );
           setDistance(newDistance);
-          setBarFound(true); // Nu har vi hittat en bar
+          setBarFound(true);
 
-          // Hämta öppettider från Google Places
           if (bar.place_id) {
             placesService.getDetails(
               { placeId: bar.place_id },
@@ -241,7 +236,6 @@ const Compass: React.FC = () => {
     });
   };
 
-  // Funktion för att spara bar till Firestore
   const saveBarToFirestore = async () => {
     const user = auth.currentUser;
     if (!user) {
@@ -271,7 +265,6 @@ const Compass: React.FC = () => {
     }
   };
 
-  // Toggle för att visa eller dölja barens namn
   const toggleBarName = () => {
     setShowBarName(!showBarName);
   };

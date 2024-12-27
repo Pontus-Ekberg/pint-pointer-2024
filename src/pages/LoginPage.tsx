@@ -139,7 +139,7 @@ const LoginPage: React.FC = () => {
           backgroundImage: `url(${ol})`,
         }}
       >
-        <a href="signup">SignUp</a>
+        <a href="signup">Sign Up</a>
       </button>
       <img
         className="absolute z-10 w-[80%] md:w-[50%] lg:w-[60%] -bottom-[20px] -right-[50px] -rotate-[8deg] w-72"
