@@ -274,7 +274,7 @@ const Compass: React.FC = () => {
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
       libraries={libraries}
     >
-      <div className="mt-[25px] w-screen flex flex-col justify-center items-center md:mt-10 font-barrio">
+      <div className="mt-[25px] w-screen flex flex-col justify-center items-center md:mt-10 font-sourgummy">
         <div onClick={toggleBarName}>
           <img
             src={showBarName ? unseeImg : seeImg}
@@ -284,12 +284,12 @@ const Compass: React.FC = () => {
         </div>
 
         {showBarName && barName && (
-          <p className="text-lg text-white font-semibold">{barName}</p>
+          <p className="text-lg text-white ">{barName}</p>
         )}
 
         {distance !== null && (
-          <p className="text-md text-white font-bold">
-            {barFound ? `${distance.toFixed(2)} meter` : "0 meter"}
+          <p className="text-md text-white text-xl">
+            {barFound ? `${distance.toFixed(2)} METER` : "0 METER"}
           </p>
         )}
 
@@ -318,38 +318,29 @@ const Compass: React.FC = () => {
 
         <div className="flex items-center space-x-4 mt-4">
           <select
-            className="bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 border-2 border-black shadow-sm md:w-24 md:h-14"
-            style={{
-              backgroundImage: `url(${ol})`,
-            }}
+            className="bg-yellow-400 opacity-90 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2  shadow-sm h-16 w-36 text-xl text-white md:w-24 md:h-14"
             value={radius}
             onChange={(e) => setRadius(Number(e.target.value))}
           >
-            <option value={1}>1 km</option>
-            <option value={2}>2 km</option>
-            <option value={3}>3 km</option>
-            <option value={4}>4 km</option>
-            <option value={5}>5 km</option>
+            <option value={1}>1 KM</option>
+            <option value={2}>2 KM</option>
+            <option value={3}>3 KM</option>
+            <option value={4}>4 KM</option>
+            <option value={5}>5 KM</option>
           </select>
 
           <button
-            className="bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black px-4 py-2 md:w-48 md:h-14"
-            style={{
-              backgroundImage: `url(${ol})`,
-            }}
+            className="bg-yellow-400 opacity-90 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 h-16 w-40 text-xl text-white md:w-48 md:h-14"
             onClick={findRandomBar}
           >
-            Find bar: {radius} km
+            FIND BAR: {radius} KM
           </button>
         </div>
 
         {!hasPermission && (
           <button
-            className="absolute z-40 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black px-4 py-2 mx-10 md:w-64 md:h-20
+            className="absolute bg-yellow-400 opacity-90 text-white text-xl z-40 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 mx-10 h-22 w-48 md:w-64 md:h-20
             "
-            style={{
-              backgroundImage: `url(${skumol})`,
-            }}
             onClick={handleOrientationPermission}
           >
             GIVE PERMISSION TO COMPASS

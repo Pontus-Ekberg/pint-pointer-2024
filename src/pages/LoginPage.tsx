@@ -59,7 +59,9 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="relative overflow-hidden h-screen flex flex-col items-center font-sourgummy">
-      <img className="mx-auto w-[200px] md:w-[350px]" src={plank} alt="" />
+      <a href="/">
+        <img className="mx-auto w-[200px] md:w-[350px]" src={plank} alt="" />
+      </a>
       <form
         onSubmit={handleLogin}
         className="flex flex-col items-center md:mt-36 w-80 p-6 pb-0"
