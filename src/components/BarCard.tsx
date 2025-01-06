@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "../service/Firebase";
-import ol from "../assets/img/ol.png";
+//import ol from "../assets/img/ol.png";
 
 const BarCard = ({
   name,
@@ -28,8 +28,8 @@ const BarCard = ({
   };
 
   return (
-    <div className="bg-gray-200 z-40 border-2 border-black p-10 shadow-md absolute top-10">
-      <h2 className="text-xl font-semibold">{name}</h2>
+    <div className="bg-gray-200 z-40 p-10 shadow-md absolute top-10 rounded-lg">
+      <h2 className="text-2xl">{name}</h2>
 
       {photoUrl ? (
         <img
@@ -45,7 +45,7 @@ const BarCard = ({
 
       {openingHours.length > 0 && (
         <div className="mt-4">
-          <h3 className="text-lg font-semibold">Opening Hours:</h3>
+          <h3 className="text-lg">Opening Hours:</h3>
           <ul className="list-disc pl-5">
             {openingHours.map((hour, index) => (
               <li key={index} className="text-sm text-gray-600">
@@ -58,19 +58,16 @@ const BarCard = ({
 
       <div className="flex justify-center space-x-2 mt-6">
         <button
-          className="border-2 border-black px-2 py-1 rounded-lg"
+          className="bg-yellow-500 opacity-90 h-16 w-36 px-2 py-1 rounded-lg text-xl text-white"
           onClick={handleGrabADrinkClick}
-          style={{
-            backgroundImage: `url(${ol})`,
-          }}
         >
-          Grab a drink!
+          GRAB A DRINk!
         </button>
         <button
-          className="bg-red-300 border-2 border-black px-4 py-1 rounded-lg"
+          className="bg-red-400 opacity-90 px-4 py-1 rounded-lg text-xl text-white"
           onClick={onClose}
         >
-          Close
+          CLOSE
         </button>
       </div>
     </div>

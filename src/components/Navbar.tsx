@@ -43,13 +43,13 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="fixed z-60 top-4 right-2">
-      <div className="flex justify-between items-center font-barrio">
+      <div className="flex justify-between items-center font-sourgummy">
         <button onClick={toggleMenu} className="focus:outline-none">
           {user && profilePicture ? (
             <img
               src={profilePicture}
               alt="Profile"
-              className="w-10 h-10 md:w-20 md:h-20 rounded-full border-2 border-black"
+              className="w-10 h-10 md:w-20 md:h-20 rounded-full"
             />
           ) : (
             <img
@@ -70,39 +70,42 @@ const Navbar: React.FC = () => {
             className="w-36 px-4 py-2 sm:inline-block"
             onClick={closeMenu}
           >
-            Home
+            HOME
           </a>
-          {user && (
-            <a
-              href="/profile"
-              className="px-4 py-2 sm:inline-block"
-              onClick={closeMenu}
-            >
-              Profile
-            </a>
-          )}
+          <a
+            href="/compass"
+            className="px-4 py-2 sm:inline-block"
+            onClick={closeMenu}
+          >
+            COMPASS
+          </a>
+
           {user && (
             <a
               href="/all-bars"
               className="px-4 py-2 sm:inline-block"
               onClick={closeMenu}
             >
-              Toprated bars
+              TOP RATED BARS
             </a>
           )}
-          <a
-            href="/compass"
-            className="px-4 py-2 sm:inline-block"
-            onClick={closeMenu}
-          >
-            Pointer
-          </a>
+
+          {user && (
+            <a
+              href="/profile"
+              className="px-4 py-2 sm:inline-block"
+              onClick={closeMenu}
+            >
+              PROFILE
+            </a>
+          )}
+
           {user && (
             <button
               onClick={handleLogout}
-              className="px-4 py-2 sm:inline-block text-red-500 text-left"
+              className="px-4 py-2 sm:inline-block text-red-600 text-left"
             >
-              Log out
+              LOG OUT
             </button>
           )}
         </div>

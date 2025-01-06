@@ -43,9 +43,9 @@ const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-barrio">
-      <div className="bg-gray-200 opacity-90 p-6 max-w-md mx-auto">
-        <h2 className="text-2xl font-semibold">{bar.name}</h2>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-sourgummy">
+      <div className="bg-gray-200 opacity-90 rounded-lg p-6 max-w-md mx-auto">
+        <h2 className="text-2xl">{bar.name}</h2>
         {bar.photoUrl ? (
           <img
             src={bar.photoUrl}
@@ -94,12 +94,9 @@ const BarDetails: React.FC<BarDetailsProps> = ({ bar, onClose }) => {
 
         <button
           onClick={onClose}
-          className="mt-4 px-4 py-2 border-2 border-black rounded-lg"
-          style={{
-            backgroundImage: `url(${ol})`,
-          }}
+          className="bg-red-500 opacity-90 mt-4 px-4 py-2 rounded-lg text-white"
         >
-          Close
+          CLOSE
         </button>
       </div>
     </div>
