@@ -17,8 +17,7 @@ export default {
         60: "60",
       },
       fontFamily: {
-        barrio: ["Barrio", "sans-serif"],
-        rock: ["'Rock 3D'", "sans-serif"],
+        sourgummy: ["'Sour Gummy'", "sans-serif"],
       },
     },
   },
