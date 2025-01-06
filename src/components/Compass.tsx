@@ -165,9 +165,9 @@ const Compass: React.FC = () => {
       setDistance(distanceToTarget);
 
       if (distanceToTarget < 20) {
-        setShowBarCard(true);
-      } else {
         setShowBarCard(false);
+      } else {
+        setShowBarCard(true);
       }
     }
   }, [userCoords, targetCoords]);
