@@ -5,11 +5,9 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../service/Firebase";
-import confetti from "../assets/img/Confettipur.png";
-import loginimg from "../assets/img/Planklogin.png";
-import claus from "../assets/img/Claus.png";
-import skumol from "../assets/img/skumol.png";
-import ol from "../assets/img/ol.png";
+//import confetti from "../assets/img/Confettipur.png";
+import plank from "../assets/img/Plank.png";
+//import claus from "../assets/img/Claus.png";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -60,8 +58,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="relative overflow-hidden h-screen flex flex-col items-center font-barrio">
-      <img className="mx-auto w-[200px] md:w-[350px]" src={loginimg} alt="" />
+    <div className="relative overflow-hidden h-screen flex flex-col items-center font-sourgummy">
+      <img className="mx-auto w-[200px] md:w-[350px]" src={plank} alt="" />
       <form
         onSubmit={handleLogin}
         className="flex flex-col items-center md:mt-36 w-80 p-6 pb-0"
@@ -76,7 +74,7 @@ const LoginPage: React.FC = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full z-20 opacity-85 p-2 mb-4 border border-black lg:w-80 lg:h-14"
+          className="w-full z-20 opacity-85 p-3 mb-4 rounded-lg lg:w-80 lg:h-14"
           required
         />
         <input
@@ -84,15 +82,12 @@ const LoginPage: React.FC = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full z-20 opacity-85 p-2 mb-4 border border-black lg:w-80 lg:h-14"
+          className="w-full z-20 opacity-85 p-3 mb-4 rounded-lg lg:w-80 lg:h-14"
           required
         />
         <button
           type="submit"
-          className="w-36 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg z-20 py-2 border-2 border-black lg:w-48 lg:h-14 text-xl"
-          style={{
-            backgroundImage: `url(${skumol})`,
-          }}
+          className="bg-yellow-500 opacity-90 text-white h-16 w-40 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg z-20 py-2 lg:w-48 lg:h-14 text-2xl"
         >
           Login
         </button>
@@ -133,14 +128,10 @@ const LoginPage: React.FC = () => {
         </div>
       )}
 
-      <button
-        className="mt-48 z-20 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black w-32 h-10 md:mt-96 lg:mt-[700px] lg:w-48 lg:h-14"
-        style={{
-          backgroundImage: `url(${ol})`,
-        }}
-      >
+      <button className="bg-yellow-500 opacity-90 text-2xl text-white mt-48 z-20 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg w-40 h-16 md:mt-96 lg:mt-[700px] lg:w-48 lg:h-14">
         <a href="signup">Sign Up</a>
       </button>
+      {/*
       <img
         className="absolute z-10 w-[80%] md:w-[50%] lg:w-[60%] -bottom-[20px] -right-[50px] -rotate-[8deg] w-72"
         src={confetti}
@@ -151,6 +142,7 @@ const LoginPage: React.FC = () => {
         src={claus}
         alt=""
       />
+*/}
     </div>
   );
 };
