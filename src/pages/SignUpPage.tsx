@@ -85,7 +85,7 @@ const SignUpPage: React.FC = () => {
         />
         <button
           type="submit"
-          className="bg-yellow-400 opacity-90 h-16 w-40 z-20 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg py-2 lg:w-48 lg:h-14 text-white text-2xl"
+          className="bg-yellow-500 opacity-90 h-16 w-40 z-20 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg py-2 lg:w-48 lg:h-14 text-white text-2xl"
         >
           Sign Up
         </button>

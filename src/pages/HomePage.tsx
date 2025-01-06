@@ -91,7 +91,7 @@ const HomePage = () => {
 
         {isLoggedIn && recentBars.length > 0 && (
           <div className="flex flex-col items-center mt-8 z-50 md:mt-20">
-            <h2 className="text-white bg-yellow-600 rounded-lg px-2 text-2xl font-bold mb-4 opacity-95">
+            <h2 className="text-white bg-yellow-500 rounded-lg px-2 text-2xl font-bold mb-4 opacity-95">
               Recently Visited Bars
             </h2>
 

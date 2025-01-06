@@ -318,7 +318,7 @@ const Compass: React.FC = () => {
 
         <div className="flex items-center space-x-4 mt-4">
           <select
-            className="bg-yellow-400 opacity-90 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2  shadow-sm h-16 w-36 text-xl text-white md:w-24 md:h-14"
+            className="bg-yellow-500 opacity-90 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2  shadow-sm h-16 w-36 text-xl text-white md:w-24 md:h-14"
             value={radius}
             onChange={(e) => setRadius(Number(e.target.value))}
           >
@@ -330,7 +330,7 @@ const Compass: React.FC = () => {
           </select>
 
           <button
-            className="bg-yellow-400 opacity-90 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 h-16 w-40 text-xl text-white md:w-48 md:h-14"
+            className="bg-yellow-500 opacity-90 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 h-16 w-40 text-xl text-white md:w-48 md:h-14"
             onClick={findRandomBar}
           >
             FIND BAR: {radius} KM
@@ -339,7 +339,7 @@ const Compass: React.FC = () => {
 
         {!hasPermission && (
           <button
-            className="absolute bg-yellow-400 opacity-90 text-white text-xl z-40 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 mx-10 h-22 w-48 md:w-64 md:h-20
+            className="absolute bg-yellow-500 opacity-90 text-white text-xl z-40 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-4 py-2 mx-10 h-22 w-48 md:w-64 md:h-20
             "
             onClick={handleOrientationPermission}
           >

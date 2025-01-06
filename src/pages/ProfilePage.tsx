@@ -10,10 +10,10 @@ import {
   orderBy,
 } from "firebase/firestore";
 import EditCard from "../components/EditCard";
-import plankimg from "../assets/img/Plankprofile.png";
+import plank from "../assets/img/Plank.png";
 import BarDetails from "../components/BarDetails";
-import skumol from "../assets/img/skumol.png";
-import ol from "../assets/img/ol.png";
+//import skumol from "../assets/img/skumol.png";
+//import ol from "../assets/img/ol.png";
 
 export type Bar = {
   id: string;
@@ -130,45 +130,38 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center font-barrio">
-      <img className="mx-auto w-[200px]" src={plankimg} alt="" />
-
+    <div className="flex flex-col items-center font-sourgummy">
+      <a href="/">
+        <img className="mx-auto w-[200px]" src={plank} alt="" />
+      </a>
       <div className="mt-14">
         <img
-          className="h-32 w-32 rounded-full border-2 border-black"
+          className="h-32 w-32 rounded-full"
           src={profilePicture || "https://via.placeholder.com/150"}
           alt="Profile"
         />
 
-        <p className="mt-4 text-xl text-white font-medium text-center">
+        <p className="mt-4 text-white text-2xl text-center">
           {displayName || "No Name Set"}
         </p>
       </div>
 
       <div className="flex flex-col mt-8 space-y-4">
-        <button
-          className="px-6 py-2 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black"
-          style={{
-            backgroundImage: `url(${skumol})`,
-          }}
-        >
-          <a className="text-xl" href="/compass">
-            PintPoint!
+        <button className="bg-yellow-500 opacity-90 px-6 py-2 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg h-12 w-50">
+          <a className="text-xl text-white" href="/compass">
+            COMPASS
           </a>
         </button>
         <button
           onClick={() => setShowEditCard(true)}
-          className="px-6 py-2 bg-cover bg-center drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg border-2 border-black text-xl"
-          style={{
-            backgroundImage: `url(${ol})`,
-          }}
+          className="bg-yellow-500 opacity-90 text-white h-12 w-50 px-6 py-2 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg text-xl"
         >
-          Edit Profile
+          EDIT PROFILE
         </button>
       </div>
 
       <div className="mt-10 w-[90%] max-w-lg">
-        <h2 className="text-2xl text-white font-bold mb-4">Saved Bars</h2>
+        <h2 className="text-2xl text-white mb-4">SAVED BARS</h2>
         {savedBars.length > 0 ? (
           savedBars.map((bar) => (
             <div
@@ -186,9 +179,9 @@ const ProfilePage: React.FC = () => {
                 <div className="w-16 h-16 bg-gray-400 rounded-md mr-4"></div>
               )}
               <div>
-                <p className="text-lg font-medium">{bar.name}</p>
+                <p className="text-xl">{bar.name}</p>
                 <p className="text-sm text-gray-700">
-                  Average Rating: {`${bar.rating} of 5 Beers`}
+                  AVERAGE RATING: {`${bar.rating} OF 5 BEERS`}
                 </p>
                 <select
                   value={bar.rating}
@@ -200,7 +193,7 @@ const ProfilePage: React.FC = () => {
                 >
                   {[0, 1, 2, 3, 4, 5].map((rating) => (
                     <option key={rating} value={rating}>
-                      {rating} Beer{rating > 1 ? "s" : ""}
+                      {rating} BEER{rating > 1 ? "S" : ""}
                     </option>
                   ))}
                 </select>

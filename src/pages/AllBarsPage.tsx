@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../service/Firebase";
 import { collectionGroup, getDocs, DocumentData } from "firebase/firestore";
-import topratedimg from "../assets/img/Toprated.png";
+import plank from "../assets/img/Plank.png";
 import BarDetails from "../components/BarDetails";
 import ratingbeer from "../assets/img/beer-1669275_960_720.webp";
 import halfbeer from "../assets/img/halfbier.png";
@@ -132,9 +132,10 @@ const AllBarsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center md:w-[90%] mx-auto font-barrio">
-      <img className="mx-auto w-[200px]" src={topratedimg} alt="" />
-
+    <div className="flex flex-col items-center md:w-[90%] mx-auto font-sourgummy">
+      <a href="/">
+        <img className="mx-auto w-[200px]" src={plank} alt="" />
+      </a>
       {loading ? (
         <p className="mt-4 text-gray-500">Loading...</p>
       ) : allBars.length > 0 ? (
@@ -155,13 +156,13 @@ const AllBarsPage: React.FC = () => {
                 <div className="w-16 h-16 bg-gray-400 rounded-md mr-4"></div>
               )}
               <div>
-                <p className="text-lg font-medium">{bar.name}</p>
+                <p className="text-xl">{bar.name}</p>
                 <p className="text-sm text-gray-700">
-                  Average Rating:
+                  AVERAGE RATING:
                   <span className="flex">
                     {renderRatingImages(bar.rating)}
                   </span>{" "}
-                  ({bar.ratingCount} votes)
+                  ({bar.ratingCount} VOTES)
                 </p>
               </div>
             </div>
