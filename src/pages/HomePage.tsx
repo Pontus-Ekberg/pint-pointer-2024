@@ -17,6 +17,7 @@ const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [recentBars, setRecentBars] = useState<Bar[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -35,7 +36,7 @@ const HomePage = () => {
           const bars = barsSnapshot.docs.map((doc) => ({
             id: doc.id,
             name: doc.data().name || "Unknown Bar",
-            photoUrl: doc.data().photoUrl || null,
+            photoUrl: doc.data().photoReference || null,
             address: doc.data().address || "No address available",
           }));
 
@@ -48,6 +49,30 @@ const HomePage = () => {
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const generatePhotoUrl = async () => {
+      if (recentBars.length > 0 && recentBars[currentIndex].photoUrl) {
+        const photoUrl = recentBars[currentIndex].photoUrl;
+        // If it's already a full URL (old data), use it directly
+        if (photoUrl.startsWith("http")) {
+          setImageUrl(photoUrl);
+          return;
+        }
+
+        // Otherwise, it's a photo reference, so generate the URL
+        const baseUrl = "https://maps.googleapis.com/maps/api/place/photo";
+        const maxWidth = 400;
+        const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+        const url = `${baseUrl}?maxwidth=${maxWidth}&photo_reference=${photoUrl}&key=${apiKey}`;
+        setImageUrl(url);
+      } else {
+        setImageUrl(null);
+      }
+    };
+
+    generatePhotoUrl();
+  }, [recentBars, currentIndex]);
 
   const handleNext = () => {
     if (recentBars.length > 0) {
@@ -102,9 +127,9 @@ const HomePage = () => {
                   key={bar.id}
                   className="min-w-[200px] bg-gray-300 opacity-95 p-4 rounded-md shadow-md"
                 >
-                  {bar.photoUrl ? (
+                  {imageUrl ? (
                     <img
-                      src={bar.photoUrl}
+                      src={imageUrl}
                       alt={bar.name}
                       className="w-full h-32 object-cover rounded-md mb-2"
                     />
@@ -117,18 +142,17 @@ const HomePage = () => {
               ))}
             </div>
 
-            {/* För mindre skärmar: Ett kort i taget med navigeringsknappar */}
-            <div className="flex items-center justify-center md:hidden space-x-4">
+            <div className="relative w-full flex items-center justify-center md:hidden">
               <button
                 onClick={handlePrevious}
-                className="text-white bg-yellow-600 p-2 rounded-lg opacity-80 text-2xl"
+                className="absolute left-1 text-white bg-yellow-500 p-2 rounded-lg opacity-90 text-2xl"
               >
                 ←
               </button>
-              <div className="min-w-[200px] bg-gray-300 opacity-95 p-4 rounded-md shadow-md">
-                {recentBars[currentIndex].photoUrl ? (
+              <div className="min-w-[200px] max-w-[260px] bg-gray-300 opacity-95 p-4 rounded-md shadow-md">
+                {imageUrl ? (
                   <img
-                    src={recentBars[currentIndex].photoUrl}
+                    src={imageUrl}
                     alt={recentBars[currentIndex].name}
                     className="w-full h-32 object-cover rounded-md mb-2"
                   />
@@ -142,9 +166,10 @@ const HomePage = () => {
                   {recentBars[currentIndex].address}
                 </p>
               </div>
+
               <button
                 onClick={handleNext}
-                className="text-white bg-yellow-600 p-2 rounded-lg opacity-80 text-2xl"
+                className="absolute right-1 text-white bg-yellow-500 p-2 rounded-lg opacity-90 text-2xl"
               >
                 →
               </button>

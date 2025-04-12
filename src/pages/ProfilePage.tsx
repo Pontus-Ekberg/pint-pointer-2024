@@ -51,7 +51,7 @@ const ProfilePage: React.FC = () => {
             const bars = barsSnapshot.docs.map((doc) => ({
               id: doc.id,
               name: doc.data().name || "Unknown Bar",
-              photoUrl: doc.data().photoUrl || null,
+              photoUrl: doc.data().photoReference || null,
               rating: doc.data().rating || 0,
               ratingCount: doc.data().ratingCount || 0,
               address: doc.data().address || "No address available",

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { updateProfile, updatePassword } from "firebase/auth";
 import { auth } from "../service/Firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import ol from "../assets/img/ol.png";
 
 interface EditCardProps {
   onClose: () => void;
@@ -69,7 +68,7 @@ const EditCard: React.FC<EditCardProps> = ({ onClose, onSaveSuccess }) => {
       <div className="bg-gray-100 w-[90%] max-w-md p-6 shadow-lg relative">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-black"
+          className="absolute top-3 right-3 bg-yellow-500 text-white opacity-90 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg px-3 py-1 text-xl"
         >
           ✕
         </button>
@@ -102,7 +101,7 @@ const EditCard: React.FC<EditCardProps> = ({ onClose, onSaveSuccess }) => {
             <input
               type="file"
               onChange={handleFileChange}
-              className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:border-2 file:bg-green-100 file:rounded-lg drop-shadow-md"
+              className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:bg-yellow-100 file:rounded-lg drop-shadow-md"
             />
           </div>
 
@@ -112,10 +111,7 @@ const EditCard: React.FC<EditCardProps> = ({ onClose, onSaveSuccess }) => {
           <button
             type="button"
             onClick={handleSave}
-            className="w-full bg-gray-400 border-2 border-black py-2 rounded-lg drop-shadow-md"
-            style={{
-              backgroundImage: `url(${ol})`,
-            }}
+            className="w-full bg-yellow-500 text-white opacity-90 drop-shadow-md hover:scale-105 hover:brightness-110 rounded-lg py-2 text-2xl"
           >
             Save Changes
           </button>

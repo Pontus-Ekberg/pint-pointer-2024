@@ -7,8 +7,8 @@ import pripp from "../assets/img/Pripp.png";
 import unseeImg from "../assets/img/unsee.png";
 import seeImg from "../assets/img/see.png";
 import BarCard from "./BarCard";
-import skumol from "../assets/img/skumol.png";
-import ol from "../assets/img/ol.png";
+//import skumol from "../assets/img/skumol.png";
+//import ol from "../assets/img/ol.png";
 
 const libraries: Libraries = ["places"];
 
@@ -165,9 +165,9 @@ const Compass: React.FC = () => {
       setDistance(distanceToTarget);
 
       if (distanceToTarget < 20) {
-        setShowBarCard(false);
-      } else {
         setShowBarCard(true);
+      } else {
+        setShowBarCard(false);
       }
     }
   }, [userCoords, targetCoords]);
@@ -253,7 +253,7 @@ const Compass: React.FC = () => {
       );
       await setDoc(barRef, {
         name: barName || "Unknown Bar",
-        photoUrl: barPhotoUrl,
+        photoReference: barPhotoUrl,
         address: barAddress || null,
         timestamp: new Date(),
         openingHours: openingHours,

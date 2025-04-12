@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "../service/Firebase";
+import { useEffect, useState } from "react";
 //import ol from "../assets/img/ol.png";
 
 const BarCard = ({
@@ -18,6 +19,28 @@ const BarCard = ({
   onSave: () => void;
 }) => {
   const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const generatePhotoUrl = async () => {
+      if (photoUrl) {
+        // If it's already a full URL (old data), use it directly
+        if (photoUrl.startsWith("http")) {
+          setImageUrl(photoUrl);
+          return;
+        }
+
+        // Otherwise, it's a photo reference, so generate the URL
+        const baseUrl = "https://maps.googleapis.com/maps/api/place/photo";
+        const maxWidth = 400;
+        const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+        const url = `${baseUrl}?maxwidth=${maxWidth}&photo_reference=${photoUrl}&key=${apiKey}`;
+        setImageUrl(url);
+      }
+    };
+
+    generatePhotoUrl();
+  }, [photoUrl]);
 
   const handleGrabADrinkClick = () => {
     onSave();
@@ -31,9 +54,9 @@ const BarCard = ({
     <div className="bg-gray-200 z-40 p-10 shadow-md absolute top-10 rounded-lg">
       <h2 className="text-2xl">{name}</h2>
 
-      {photoUrl ? (
+      {imageUrl ? (
         <img
-          src={photoUrl}
+          src={imageUrl}
           alt={name}
           className="w-40 h-40 mx-auto object-cover rounded-md mt-2"
         />

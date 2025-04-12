@@ -29,7 +29,7 @@ const AllBarsPage: React.FC = () => {
         const barsMap = new Map<
           string,
           {
-            photoUrl: string | null;
+            photoReference: string | null;
             totalRating: number;
             ratingCount: number;
             address: string | null;
@@ -42,7 +42,8 @@ const AllBarsPage: React.FC = () => {
 
           if (
             typeof data.name === "string" &&
-            (data.photoUrl === null || typeof data.photoUrl === "string") &&
+            (data.photoReference === null ||
+              typeof data.photoReference === "string") &&
             typeof data.rating === "number"
           ) {
             const barName = data.name;
@@ -55,7 +56,7 @@ const AllBarsPage: React.FC = () => {
               existingBar.ratingCount += 1;
             } else {
               barsMap.set(barName, {
-                photoUrl: data.photoUrl || null,
+                photoReference: data.photoReference || null,
                 totalRating: data.rating,
                 ratingCount: 1,
                 address,
@@ -68,11 +69,11 @@ const AllBarsPage: React.FC = () => {
         const bars: Bar[] = Array.from(barsMap.entries()).map(
           ([
             name,
-            { photoUrl, totalRating, ratingCount, address, openingHours },
+            { photoReference, totalRating, ratingCount, address, openingHours },
           ]) => ({
             id: name,
             name,
-            photoUrl,
+            photoUrl: photoReference,
             rating: parseFloat((totalRating / ratingCount).toFixed(2)),
             ratingCount,
             address,
