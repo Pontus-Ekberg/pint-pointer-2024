@@ -60,54 +60,65 @@ const Navbar: React.FC = () => {
           )}
         </button>
 
+        {/* Fullscreen Menu */}
         <div
           className={`${
-            isOpen ? "block" : "hidden"
-          } absolute flex flex-col top-12 -left-24 bg-gray-300 rounded-md`}
+            isOpen ? "fixed" : "hidden"
+          } right-4 top-4 left-4 md:right-8 md:left-8 md:top-8 bg-gray-300 bg-opacity-95 z-50 flex flex-col items-center rounded-2xl shadow-xl pt-20 pb-12`}
         >
-          <a
-            href="/"
-            className="w-36 px-4 py-2 sm:inline-block"
+          {/* Close Button */}
+          <button
             onClick={closeMenu}
+            className="absolute top-4 right-4 text-4xl font-bold hover:scale-110 transition-transform"
           >
-            HOME
-          </a>
-          <a
-            href="/compass"
-            className="px-4 py-2 sm:inline-block"
-            onClick={closeMenu}
-          >
-            COMPASS
-          </a>
+            ✕
+          </button>
 
-          {user && (
+          <div className="flex flex-col items-center space-y-8 text-3xl">
             <a
-              href="/all-bars"
-              className="px-4 py-2 sm:inline-block"
+              href="/"
+              className="w-64 py-3 text-center hover:scale-110 transition-transform hover:bg-yellow-500 hover:text-white rounded-lg"
               onClick={closeMenu}
             >
-              TOP RATED BARS
+              HOME
             </a>
-          )}
-
-          {user && (
             <a
-              href="/profile"
-              className="px-4 py-2 sm:inline-block"
+              href="/compass"
+              className="w-64 py-3 text-center hover:scale-110 transition-transform hover:bg-yellow-500 hover:text-white rounded-lg"
               onClick={closeMenu}
             >
-              PROFILE
+              COMPASS
             </a>
-          )}
 
-          {user && (
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 sm:inline-block text-red-600 text-left"
-            >
-              LOG OUT
-            </button>
-          )}
+            {user && (
+              <a
+                href="/all-bars"
+                className="w-64 py-3 text-center hover:scale-110 transition-transform hover:bg-yellow-500 hover:text-white rounded-lg"
+                onClick={closeMenu}
+              >
+                TOP RATED BARS
+              </a>
+            )}
+
+            {user && (
+              <a
+                href="/profile"
+                className="w-64 py-3 text-center hover:scale-110 transition-transform hover:bg-yellow-500 hover:text-white rounded-lg"
+                onClick={closeMenu}
+              >
+                PROFILE
+              </a>
+            )}
+
+            {user && (
+              <button
+                onClick={handleLogout}
+                className="w-64 py-3 text-center hover:scale-110 transition-transform hover:bg-red-500 hover:text-white rounded-lg text-red-600"
+              >
+                LOG OUT
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </nav>
